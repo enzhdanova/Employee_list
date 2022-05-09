@@ -11,4 +11,5 @@
     <color name="search_text_color">#C3C3C6</color>
     <color name="transparent">#0FFF</color>
     <color name="user_card_title">#050510</color>
+    <color name="user_card_subtitle">#55555C</color>
 </resources>
