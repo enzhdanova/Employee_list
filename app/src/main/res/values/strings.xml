@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MainActivity</string>
+    <string name="enter_search_text">Введи имя, тег, почту...</string>
+    <string name="tmp_name">Фамилия Имя Отчество</string>
+</resources>
