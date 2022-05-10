@@ -1,6 +1,5 @@
 package com.example.task.mainactivity.ui.view
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,9 @@ import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.UserCardBinding
 
-class EmployeesAdapter : ListAdapter<User, EmployeesAdapter.ViewHolder>(DIFF) {
+class EmployeesAdapter(
+    private val listener: EmployeesAdapterListener
+) : ListAdapter<User, EmployeesAdapter.ViewHolder>(DIFF) {
 
     private companion object {
         val DIFF = object  : DiffUtil.ItemCallback<User>(){
@@ -34,9 +35,15 @@ class EmployeesAdapter : ListAdapter<User, EmployeesAdapter.ViewHolder>(DIFF) {
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = UserCardBinding.bind(view)
+
+        init {
+            binding.root.setOnClickListener {
+                listener.onItemClick(getItem(bindingAdapterPosition))
+            }
+        }
 
         fun bind(data: User) = with(binding){
             val fullUserName = "${data.firstName} ${data.lastName}"
@@ -45,5 +52,9 @@ class EmployeesAdapter : ListAdapter<User, EmployeesAdapter.ViewHolder>(DIFF) {
             userNickname.text = data.userTag
             userBirthday.text = data.birthday
         }
+    }
+
+    interface EmployeesAdapterListener {
+        fun onItemClick(item: User)
     }
 }
