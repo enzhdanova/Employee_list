@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.uiState.observe(this) {
             uiState ->
-            uiState.employeeList?.let { data -> employeesAdapter.setData(data) }
+            uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
         }
 
 

@@ -1,16 +1,26 @@
 package com.example.task.mainactivity.ui.view
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.UserCardBinding
 
-class EmployeesAdapter : RecyclerView.Adapter<EmployeesAdapter.ViewHolder>() {
+class EmployeesAdapter : ListAdapter<User, EmployeesAdapter.ViewHolder>(DIFF) {
 
-    private val items = mutableListOf<User>()
+    private companion object {
+        val DIFF = object  : DiffUtil.ItemCallback<User>(){
+            override fun areItemsTheSame(oldItem: User, newItem: User) = oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: User, newItem: User) = oldItem == newItem
+
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -21,16 +31,7 @@ class EmployeesAdapter : RecyclerView.Adapter<EmployeesAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
-    override fun getItemCount(): Int = items.size
-
-    fun setData(users: List<User>){
-        items.clear()
-        items.addAll(users)
-
-        notifyDataSetChanged()
+        holder.bind(getItem(position))
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -42,6 +43,9 @@ class EmployeesAdapter : RecyclerView.Adapter<EmployeesAdapter.ViewHolder>() {
             userName.text = fullUserName
             userPosition.text = data.position
             userNickname.text = data.userTag
+            userBirthday.text = data.birthday  // TODO: разобраться как быть, если картинка не доступна
+          //  userPhoto.setImageURI(Uri.parse(data.avatarUrl))
+
         }
     }
 }

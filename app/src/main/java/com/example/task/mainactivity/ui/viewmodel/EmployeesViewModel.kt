@@ -13,12 +13,8 @@ class EmployeesViewModel : ViewModel() {
     val uiState: LiveData<EmployeesUIState> = _uiState
 
     init {
-        println("MyApp: in init block:")
-        println("MyApp: ${_uiState.value}")
         _uiState.value = EmployeesUIState()
         getEmployees()
-        println("MyApp: after getEmploees:")
-        println("MyApp: ${_uiState.value}")
     }
 
     fun getEmployees(){
