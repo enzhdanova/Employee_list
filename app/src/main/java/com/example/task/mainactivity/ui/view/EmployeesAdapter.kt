@@ -43,9 +43,7 @@ class EmployeesAdapter : ListAdapter<User, EmployeesAdapter.ViewHolder>(DIFF) {
             userName.text = fullUserName
             userPosition.text = data.position
             userNickname.text = data.userTag
-            userBirthday.text = data.birthday  // TODO: разобраться как быть, если картинка не доступна
-          //  userPhoto.setImageURI(Uri.parse(data.avatarUrl))
-
+            userBirthday.text = data.birthday
         }
     }
 }

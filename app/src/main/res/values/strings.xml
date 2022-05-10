@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MainActivity</string>
-    <string name="enter_search_text">Введи имя, тег, почту...</string>
-    <string name="tmp_name">Фамилия Имя Отчество</string>
+    <string name="enter_search_text">Введи имя, тег, почту…</string>
+    <string name="tmp_name">Фамилия Имя</string>
     <string name="tmp_position">Я работаю</string>
     <string name="tmp_nickname">nickname</string>
     <string name="tmp_bd">дата</string>
+    <string name="tmp_phone">номер телефона</string>
 </resources>

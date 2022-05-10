@@ -12,4 +12,5 @@
     <color name="transparent">#0FFF</color>
     <color name="user_card_title">#050510</color>
     <color name="user_card_subtitle">#55555C</color>
+    <color name="user_nickname">#97979B</color>
 </resources>
