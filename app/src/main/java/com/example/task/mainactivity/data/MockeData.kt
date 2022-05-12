@@ -3,7 +3,7 @@ package com.example.task.mainactivity.data
 object MockeData {
     val users = listOf<User>(
         User(   "e0fceffa-cef3-45f7-97c6-6be2e3705927",
-            "https://cdn.fakercloud.com/avatars/marrimo_128.jpg",
+            "https://i.pravatar.cc/300",
             "Dee",
             "Reichert",
             "LK",
@@ -13,7 +13,7 @@ object MockeData {
             "802-623-1785"),
         User(
             "6712da93-2b1c-4ed3-a169-c69cf74c3291",
-            "https://cdn.fakercloud.com/avatars/alterchuca_128.jpg",
+            "https://i.pravatar.cc/300",
             "Kenton",
             "Fritsch",
             "AG",
@@ -24,7 +24,7 @@ object MockeData {
         ),
         User(
             "514bec78-d65d-4140-81d7-e23fb3fc3ba8",
-            "https://cdn.fakercloud.com/avatars/vitorleal_128.jpg",
+            "https://i.pravatar.cc/300",
             "Hanna",
             "Kling",
             "PY",
@@ -35,7 +35,7 @@ object MockeData {
         ),
         User(
             "e66c4836-ad5f-4b93-b82a-9251b0f9aca2",
-            "https://cdn.fakercloud.com/avatars/derekcramer_128.jpg",
+            "https://i.pravatar.cc/300",
             "River",
             "Gutkowski",
             "FM",
@@ -46,7 +46,7 @@ object MockeData {
         ),
         User(
             "2d92c819-e2e3-4167-8455-2e0471583e5a",
-            "https://cdn.fakercloud.com/avatars/ramanathan_pdy_128.jpg",
+            "https://i.pravatar.cc/300",
             "Kitty",
             "Glover",
             "EH",
@@ -57,7 +57,7 @@ object MockeData {
         ),
         User(
             "9c2ae452-1606-4f7e-bbd5-379636a948f4",
-            "https://cdn.fakercloud.com/avatars/weavermedia_128.jpg",
+            "https://i.pravatar.cc/300",
             "Deven",
             "Pfeffer",
             "RO",
@@ -68,7 +68,7 @@ object MockeData {
         ),
         User(
             "bfb14ee9-2021-4070-86cf-ba1bb39d5acf",
-            "https://cdn.fakercloud.com/avatars/falconerie_128.jpg",
+            "https://i.pravatar.cc/300",
             "Amalia",
             "Okuneva",
             "TJ",
@@ -79,7 +79,7 @@ object MockeData {
         ),
         User(
             "a0df8ea5-82e6-49f9-a910-f01d1b69dd65",
-            "https://cdn.fakercloud.com/avatars/josecarlospsh_128.jpg",
+            "https://i.pravatar.cc/300",
             "Heloise",
             "Wolf",
             "IT",
@@ -90,7 +90,7 @@ object MockeData {
         ),
         User(
             "1500765e-c318-41d6-bb4c-944792c12bb8",
-            "https://cdn.fakercloud.com/avatars/dimaposnyy_128.jpg",
+            "https://i.pravatar.cc/300",
             "Freda",
             "Crooks",
             "GS",
@@ -101,7 +101,7 @@ object MockeData {
         ),
         User(
             "a2f8e911-67d2-4d1a-8056-b82d45e11a8e",
-            "https://cdn.fakercloud.com/avatars/hsinyo23_128.jpg",
+            "https://i.pravatar.cc/300",
             "Alba",
             "Leuschke",
             "KW",

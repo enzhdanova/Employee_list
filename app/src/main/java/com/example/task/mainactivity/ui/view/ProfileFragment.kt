@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
+import com.bumptech.glide.Glide
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.FragmentProfileBinding
 
@@ -22,6 +23,12 @@ class ProfileFragment() : Fragment() {
             binding?.position?.text = it.getString(ARG_POSITION)
             binding?.birthday?.text = it.getString(ARG_DATE)
         //    binding?.avatar?.setImageURI(Uri.parse("https://i.pravatar.cc/72"))
+            binding?.avatar?.let { it1 ->
+                Glide
+                    .with(view)
+                    .load("https://i.pravatar.cc/300")
+                    .into(it1)
+            }
         }
 
         binding?.back?.setOnClickListener(listener)
@@ -48,6 +55,7 @@ class ProfileFragment() : Fragment() {
         private const val ARG_PHONE = "param_phone"
         private const val ARG_NICKNAME = "param_nickname"
         private const val ARG_POSITION = "param_position"
+        private const val ARG_PHOTO = "param_photo"
 
         @JvmStatic
         fun newInstance(user: User) =

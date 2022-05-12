@@ -1,12 +1,12 @@
 package com.example.task.mainactivity.ui.view
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.UserCardBinding
@@ -53,7 +53,11 @@ class EmployeesAdapter(
             userNickname.text = data.userTag
             userBirthday.text = data.birthday
             //TODO: РАзобраться в чем дело, не грузится картинка
-            userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
+           // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
+            Glide
+                .with(itemView)
+                .load(data.avatarUrl)
+                .into(userPhoto)
         }
     }
 
