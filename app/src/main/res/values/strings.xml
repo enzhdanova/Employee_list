@@ -6,4 +6,6 @@
     <string name="tmp_nickname">nickname</string>
     <string name="tmp_bd">дата</string>
     <string name="tmp_phone">номер телефона</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

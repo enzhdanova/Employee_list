@@ -1,5 +1,6 @@
 package com.example.task.mainactivity.ui.view
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +52,8 @@ class EmployeesAdapter(
             userPosition.text = data.position
             userNickname.text = data.userTag
             userBirthday.text = data.birthday
+            //TODO: РАзобраться в чем дело, не грузится картинка
+            userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
         }
     }
 
