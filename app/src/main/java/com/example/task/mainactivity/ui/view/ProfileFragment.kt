@@ -7,22 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
+import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.FragmentProfileBinding
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
 
-class ProfileFragment() : Fragment() {
+class ProfileFragment : Fragment() {
 
     private var binding: FragmentProfileBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
+            val birthdate = it.getString(ARG_DATE)
+            val age = Period.between(LocalDate.parse(birthdate), LocalDate.now()).years
+            val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+
             binding?.name?.text = it.getString(ARG_NAME)
             binding?.nickname?.text = it.getString(ARG_NICKNAME)
             binding?.phone?.text = it.getString(ARG_PHONE)
             binding?.position?.text = it.getString(ARG_POSITION)
-            binding?.birthday?.text = it.getString(ARG_DATE)
-        //    binding?.avatar?.setImageURI(Uri.parse("https://i.pravatar.cc/72"))
+            binding?.birthday?.text = LocalDate.parse(birthdate).format(formatter)
+            binding?.age?.text = resources.getQuantityString(R.plurals.plular_age, age, age)
+
+            // TODO: аватарки одни и теже, надо что-то придумать
             binding?.avatar?.let { it1 ->
                 Glide
                     .with(view)
@@ -31,7 +43,7 @@ class ProfileFragment() : Fragment() {
             }
         }
 
-        binding?.back?.setOnClickListener(listener)
+        binding?.back?.setOnClickListener(listenerBack)
     }
 
     override fun onCreateView(
@@ -42,7 +54,7 @@ class ProfileFragment() : Fragment() {
         return binding?.root
     }
 
-    private val listener = View.OnClickListener {
+    private val listenerBack = View.OnClickListener {
        activity?.supportFragmentManager?.commit {
             remove(this@ProfileFragment)
        }
@@ -67,6 +79,7 @@ class ProfileFragment() : Fragment() {
                     putString(ARG_PHONE, user.phone)
                     putString(ARG_DATE, user.birthday)
                     putString(ARG_POSITION, user.position)
+                    putString(ARG_PHOTO, user.avatarUrl)
                 }
             }
     }

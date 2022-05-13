@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.UserCardBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class EmployeesAdapter(
     private val listener: EmployeesAdapterListener
@@ -48,10 +50,12 @@ class EmployeesAdapter(
 
         fun bind(data: User) = with(binding){
             val fullUserName = "${data.firstName} ${data.lastName}"
+            val formatter = DateTimeFormatter.ofPattern("dd MMM")
+            val dateBD = LocalDate.parse(data.birthday)
             userName.text = fullUserName
             userPosition.text = data.position
             userNickname.text = data.userTag
-            userBirthday.text = data.birthday
+            userBirthday.text = dateBD.format(formatter)
             //TODO: РАзобраться в чем дело, не грузится картинка
            // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
             Glide
