@@ -8,6 +8,8 @@ import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
+import com.example.task.mainactivity.utils.Departments
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
         override fun onItemClick(item: User) {
-            println("MyApp: нажали на элемент $item")
-            val bundle = bundleOf("some_int" to 0)
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 add(R.id.fragment, ProfileFragment.newInstance(item), ProfileFragment::class.java.simpleName)
@@ -35,16 +35,28 @@ class MainActivity : AppCompatActivity() {
         val view = binding?.root
         setContentView(view)
 
-        binding?.recyclerView?.apply {
-            adapter = employeesAdapter
-            addItemDecoration(EmployeesItemDecoration(context))
-        }
+        initView()
 
         viewModel.uiState.observe(this) {
             uiState ->
             uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
         }
+    }
 
+    private fun initView(){
+        binding?.recyclerView?.apply {
+            adapter = employeesAdapter
+            addItemDecoration(EmployeesItemDecoration(context))
+        }
+
+        for (tab in Departments.values()){
+            println("MyApp: ${tab.name}  ${tab.dep}")
+          //  binding?.tabs?.newTab()?.let { binding?.tabs?.addTab(it.setText(tab.dep)) }
+            binding?.tabs?.apply {
+                val newTab = this.newTab().setText(tab.dep)
+                addTab(newTab)
+            }
+        }
 
     }
 }
