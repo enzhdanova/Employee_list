@@ -10,7 +10,8 @@
     <color name="grey_light">#F7F7F8</color>
     <color name="search_text_color">#C3C3C6</color>
     <color name="transparent">#0FFF</color>
-    <color name="user_card_title">#050510</color>
-    <color name="user_card_subtitle">#55555C</color>
+    <color name="black_text">#050510</color>
+    <color name="dark_grey">#55555C</color>
     <color name="user_nickname">#97979B</color>
+    <color name="purple_rb">#6534FF</color>
 </resources>

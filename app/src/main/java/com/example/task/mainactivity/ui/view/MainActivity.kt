@@ -2,8 +2,6 @@ package com.example.task.mainactivity.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
@@ -24,7 +22,21 @@ class MainActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
                 add(R.id.fragment, ProfileFragment.newInstance(item), ProfileFragment::class.java.simpleName)
             }
-            //TODO: Тут переход в страницу профиля сотрудника
+        }
+    }
+
+    private val tabSelectedListener = object : TabLayout.OnTabSelectedListener{
+        override fun onTabSelected(tab: TabLayout.Tab?) {
+            println(tab?.text.toString())
+            if (tab != null) {
+                viewModel.getUserFromDepartment(Departments.values()[tab.position])
+            }
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab?) {
+        }
+
+        override fun onTabReselected(tab: TabLayout.Tab?) {
         }
     }
 
@@ -52,30 +64,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         for (tab in Departments.values()){
-          //  println("MyApp: ${tab.name}  ${tab.dep}")
-          //  binding?.tabs?.newTab()?.let { binding?.tabs?.addTab(it.setText(tab.dep)) }
             binding?.tabs?.apply {
                 val newTab = this.newTab().setText(tab.dep)
                 addTab(newTab)
             }
         }
 
-        binding?.tabs?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                println(tab?.text.toString())
-                if (tab != null) {
-                    println("MyApp: вкладка выбрана ${Departments.values()[tab.position]}")
-                    viewModel.getUserFromDepartment(Departments.values()[tab.position])
-                }
-            }
+        binding?.tabs?.addOnTabSelectedListener(tabSelectedListener)
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+        val modalSortsBottomSheet = SortsModalBottomSheet()
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-        })
+        binding?.sortsUser?.setOnClickListener {
+            modalSortsBottomSheet.show(
+                supportFragmentManager,
+                SortsModalBottomSheet.TAG
+            )
+        }
 
     }
 }

@@ -8,4 +8,7 @@
     <string name="tmp_phone">номер телефона</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alphabet_sort">По алфавиту</string>
+    <string name="birthday_sort">По дню рождения</string>
+    <string name="title_sorts">Сортировка</string>
 </resources>

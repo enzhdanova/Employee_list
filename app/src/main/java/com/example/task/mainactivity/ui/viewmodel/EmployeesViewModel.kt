@@ -10,7 +10,7 @@ import com.example.task.mainactivity.utils.Departments
 import kotlinx.coroutines.launch
 
 class EmployeesViewModel(
-    val employeesRepository: EmployeesRepository
+    private val employeesRepository: EmployeesRepository
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<EmployeesUIState>()

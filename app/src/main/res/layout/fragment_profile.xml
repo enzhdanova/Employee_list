@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tmp_name"
-                android:textColor="@color/user_card_title"
+                android:textColor="@color/black_text"
                 android:textSize="24sp" />
 
             <TextView
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/tmp_position"
-            android:textColor="@color/user_card_subtitle"
+            android:textColor="@color/dark_grey"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tmp_bd"
         android:textSize="16sp"
-        android:textColor="@color/user_card_title"
+        android:textColor="@color/black_text"
         android:layout_marginStart="14dp"
         app:layout_constraintStart_toEndOf="@id/star"
         app:layout_constraintBottom_toBottomOf="@id/star"/>
@@ -115,7 +115,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tmp_phone"
         android:textSize="16sp"
-        android:textColor="@color/user_card_title"
+        android:textColor="@color/black_text"
         android:layout_marginStart="14dp"
         app:layout_constraintStart_toEndOf="@id/ic_phone"
         app:layout_constraintBottom_toBottomOf="@id/ic_phone"/>
