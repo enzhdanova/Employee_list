@@ -1,5 +1,6 @@
 package com.example.task.mainactivity.data
 
+import java.time.LocalDate
 import java.util.*
 
 data class User(
@@ -10,6 +11,6 @@ data class User(
     val userTag: String,
     val department: String,
     val position: String,
-    val birthday: String,
+    val birthday: LocalDate,
     val phone: String
 )

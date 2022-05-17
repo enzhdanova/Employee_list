@@ -78,7 +78,7 @@ class ProfileFragment : Fragment() {
                     putString(ARG_NAME, fullName)
                     putString(ARG_NICKNAME, user.userTag)
                     putString(ARG_PHONE, user.phone)
-                    putString(ARG_DATE, user.birthday)
+                    putString(ARG_DATE, user.birthday.toString())
                     putString(ARG_POSITION, user.position)
                     putString(ARG_PHOTO, user.avatarUrl)
                 }

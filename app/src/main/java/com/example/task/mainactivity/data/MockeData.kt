@@ -1,7 +1,9 @@
 package com.example.task.mainactivity.data
 
+import java.time.LocalDate
+
 object MockeData {
-    val users = listOf<User>(
+    val users = listOf(
         User(   "e0fceffa-cef3-45f7-97c6-6be2e3705927",
             "https://i.pravatar.cc/300",
             "Dee",
@@ -9,7 +11,7 @@ object MockeData {
             "LK",
             "back_office",
             "Technician",
-            "2004-08-02",
+            LocalDate.parse("2004-08-02"),
             "802-623-1785"),
         User(
             "6712da93-2b1c-4ed3-a169-c69cf74c3291",
@@ -19,7 +21,7 @@ object MockeData {
             "AG",
             "analytics",
             "Orchestrator",
-            "1976-06-14",
+            LocalDate.parse("1976-06-14"),
             "651-313-1140"
         ),
         User(
@@ -30,7 +32,7 @@ object MockeData {
             "PY",
             "android",
             "Strategist",
-            "1994-12-17",
+            LocalDate.parse("1994-12-17"),
             "980-962-6297"
         ),
         User(
@@ -41,7 +43,7 @@ object MockeData {
             "FM",
             "qa",
             "Technician",
-            "1943-05-26",
+            LocalDate.parse("1943-05-26"),
             "335-943-1610"
         ),
         User(
@@ -52,7 +54,7 @@ object MockeData {
             "EH",
             "back_office",
             "Executive",
-            "2007-02-11",
+            LocalDate.parse("2007-02-11"),
             "466-378-5904"
         ),
         User(
@@ -63,7 +65,7 @@ object MockeData {
             "RO",
             "support",
             "Orchestrator",
-            "1991-01-06",
+            LocalDate.parse("1991-01-06"),
             "337-444-5919"
         ),
         User(
@@ -74,7 +76,7 @@ object MockeData {
             "TJ",
             "ios",
             "Developer",
-            "1984-11-30",
+            LocalDate.parse("1984-11-30"),
             "985-572-5052"
         ),
         User(
@@ -85,7 +87,7 @@ object MockeData {
             "IT",
             "android",
             "Orchestrator",
-            "2013-07-24",
+            LocalDate.parse("2013-07-24"),
             "389-798-4775"
         ),
         User(
@@ -96,7 +98,7 @@ object MockeData {
             "GS",
             "ios",
             "Producer",
-            "1946-04-28",
+            LocalDate.parse("1946-04-28"),
             "949-774-9870"
         ),
         User(
@@ -107,7 +109,7 @@ object MockeData {
             "KW",
             "hr",
             "Agent",
-            "1963-03-01",
+            LocalDate.parse("1963-03-01"),
             "239-287-8777"
         ),
         User(
@@ -118,7 +120,7 @@ object MockeData {
             "TJ",
             "support",
             "Consultant",
-            "1989-06-17",
+            LocalDate.parse("1989-06-17"),
             "418-524-9839"
         ),
         User(
@@ -129,7 +131,7 @@ object MockeData {
             "CG",
             "frontend",
             "Administrator",
-            "1989-10-10",
+            LocalDate.parse("1989-10-10"),
             "809-458-8888"
         ),
         User(
@@ -140,7 +142,7 @@ object MockeData {
             "MX",
             "design",
             "Designer",
-            "1990-07-06",
+            LocalDate.parse("1990-07-06"),
             "232-889-5023"
         ),
         User(
@@ -151,7 +153,7 @@ object MockeData {
             "SR",
             "qa",
             "Consultant",
-            "1989-05-18",
+            LocalDate.parse("1989-05-18"),
             "747-307-5510"
         ),
         User(
@@ -162,7 +164,7 @@ object MockeData {
             "PA",
             "qa",
             "Analyst",
-            "1964-07-19",
+            LocalDate.parse("1964-07-19"),
             "693-210-6335"
         ),
         User(
@@ -173,7 +175,7 @@ object MockeData {
             "PY",
             "support",
             "Administrator",
-            "1985-09-14",
+            LocalDate.parse("1985-09-14"),
             "901-826-7155"
         ),
         User(
@@ -184,7 +186,7 @@ object MockeData {
             "ID",
             "design",
             "Developer",
-            "1975-08-03",
+            LocalDate.parse("1975-08-03"),
             "425-215-8382"
         ),
         User(
@@ -195,7 +197,7 @@ object MockeData {
             "AE",
             "android",
             "Developer",
-            "1978-03-24",
+            LocalDate.parse("1978-03-24"),
             "813-383-8024"
         ),
         User(
@@ -206,7 +208,7 @@ object MockeData {
             "CL",
             "analytics",
             "Manager",
-            "2006-06-25",
+            LocalDate.parse("2006-06-25"),
             "377-534-8823"
         ),
         User(
@@ -217,7 +219,7 @@ object MockeData {
             "CU",
             "hr",
             "Coordinator",
-            "1947-02-01",
+            LocalDate.parse("1947-02-01"),
             "298-519-8650"
         ),
         User(
@@ -228,7 +230,7 @@ object MockeData {
             "BT",
             "management",
             "Representative",
-            "2013-10-18",
+            LocalDate.parse("2013-10-18"),
             "339-544-3551"
         ),
         User(
@@ -239,7 +241,7 @@ object MockeData {
             "PM",
             "design",
             "Administrator",
-            "1954-08-16",
+            LocalDate.parse("1954-08-16"),
             "387-499-3172"
         ),
         User(
@@ -250,7 +252,7 @@ object MockeData {
             "PG",
             "backend",
             "Supervisor",
-            "1995-07-13",
+            LocalDate.parse("1995-07-13"),
             "286-922-2549"
         ),
         User(
@@ -261,7 +263,7 @@ object MockeData {
             "DO",
             "pr",
             "Designer",
-            "1944-10-24",
+            LocalDate.parse("1944-10-24"),
             "430-867-4771"
         ),
         User(
@@ -272,7 +274,7 @@ object MockeData {
             "LA",
             "pr",
             "Specialist",
-            "1954-03-08",
+            LocalDate.parse("1954-03-08"),
             "442-719-6462"
         ),
         User(
@@ -283,7 +285,7 @@ object MockeData {
             "KP",
             "frontend",
             "Executive",
-            "2013-02-28",
+            LocalDate.parse("2013-02-28"),
             "800-391-9714"
         ),
         User(
@@ -294,7 +296,7 @@ object MockeData {
             "ER",
             "android",
             "Executive",
-            "2007-02-06",
+            LocalDate.parse("2007-02-06"),
             "204-650-2142"
         ),
         User(
@@ -305,7 +307,7 @@ object MockeData {
             "NG",
             "support",
             "Liaison",
-            "1966-12-08",
+            LocalDate.parse("1966-12-08"),
             "837-312-0161"
         ),
         User(
@@ -316,7 +318,7 @@ object MockeData {
             "BM",
             "support",
             "Manager",
-            "2016-09-10",
+            LocalDate.parse("2016-09-10"),
             "697-363-6031"
         ),
         User(
@@ -327,7 +329,7 @@ object MockeData {
             "UA",
             "back_office",
             "Supervisor",
-            "1964-03-29",
+            LocalDate.parse("1964-03-29"),
             "421-841-0353"
         ),
         User(
@@ -338,7 +340,7 @@ object MockeData {
             "SG",
             "back_office",
             "Coordinator",
-            "1960-07-26",
+            LocalDate.parse("1960-07-26"),
             "224-974-0437"
         ),
         User(
@@ -349,7 +351,7 @@ object MockeData {
             "AU",
             "qa",
             "Orchestrator",
-            "1943-07-03",
+            LocalDate.parse("1943-07-03"),
             "930-357-6019"
         ),
         User(
@@ -360,7 +362,7 @@ object MockeData {
             "GR",
             "design",
             "Architect",
-            "1968-02-24",
+            LocalDate.parse("1968-02-24"),
             "560-809-7128"
         ),
         User(
@@ -371,7 +373,7 @@ object MockeData {
             "EE",
             "ios",
             "Consultant",
-            "2001-10-01",
+            LocalDate.parse("2001-10-01"),
             "939-417-6664"
         ),
         User(
@@ -382,7 +384,7 @@ object MockeData {
             "KZ",
             "support",
             "Agent",
-            "1942-06-09",
+            LocalDate.parse("1942-06-09"),
             "602-457-6691"
         ),
         User(
@@ -393,7 +395,7 @@ object MockeData {
             "BD",
             "android",
             "Administrator",
-            "2011-11-01",
+            LocalDate.parse("2011-11-01"),
             "846-410-1790"
         ),
         User(
@@ -404,7 +406,7 @@ object MockeData {
             "SX",
             "analytics",
             "Director",
-            "1987-11-30",
+            LocalDate.parse("1987-11-30"),
             "216-476-9969"
         ),
         User(
@@ -415,7 +417,7 @@ object MockeData {
             "BY",
             "backend",
             "Consultant",
-            "1941-10-29",
+            LocalDate.parse("1941-10-29"),
             "791-352-6316"
         ),
         User(
@@ -426,7 +428,7 @@ object MockeData {
             "SD",
             "qa",
             "Supervisor",
-            "1984-02-18",
+            LocalDate.parse("1984-02-18"),
             "453-775-8706"
         ),
         User(
@@ -437,7 +439,7 @@ object MockeData {
             "KR",
             "analytics",
             "Agent",
-            "2011-03-23",
+            LocalDate.parse("2011-03-23"),
             "720-447-1053"
         ),
         User(
@@ -448,7 +450,7 @@ object MockeData {
             "FO",
             "pr",
             "Designer",
-            "1950-01-11",
+            LocalDate.parse("1950-01-11"),
             "699-597-7389"
         ),
         User(
@@ -459,7 +461,7 @@ object MockeData {
             "PR",
             "backend",
             "Architect",
-            "2012-11-10",
+            LocalDate.parse("2012-11-10"),
             "487-981-6050"
         ),
         User(
@@ -470,7 +472,7 @@ object MockeData {
             "QA",
             "pr",
             "Specialist",
-            "2002-07-09",
+            LocalDate.parse("2002-07-09"),
             "997-546-8116"
         ),
         User(
@@ -481,7 +483,7 @@ object MockeData {
             "KN",
             "support",
             "Strategist",
-            "1984-10-26",
+            LocalDate.parse("1984-10-26"),
             "357-443-2589"
         ),
         User(
@@ -492,7 +494,7 @@ object MockeData {
             "CZ",
             "design",
             "Strategist",
-            "2004-02-23",
+            LocalDate.parse("2004-02-23"),
             "774-875-3435"
         )
     )

@@ -51,11 +51,10 @@ class EmployeesAdapter(
         fun bind(data: User) = with(binding){
             val fullUserName = "${data.firstName} ${data.lastName}"
             val formatter = DateTimeFormatter.ofPattern("dd MMM")
-            val dateBD = LocalDate.parse(data.birthday)
             userName.text = fullUserName
             userPosition.text = data.position
             userNickname.text = data.userTag
-            userBirthday.text = dateBD.format(formatter)
+            userBirthday.text = data.birthday.format(formatter)
             //TODO: РАзобраться в чем дело, не грузится картинка
            // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
             Glide

@@ -89,12 +89,9 @@ class MainActivity : AppCompatActivity() {
             modalSortsBottomSheet.setFragmentResultListener(SortsModalBottomSheet.REQUEST_KEY) {
                 _, bundle ->
                 val result = bundle.getString(SortsModalBottomSheet.ARG_RESULTSORT) ?: ""
-                println("MyApp: result modalBottomSheet: $result" )
                 viewModel.changeSortType(SortType.valueOf(result))
                 viewModel.getUserFromDepartment()
             }
-
-
 
         }
 
