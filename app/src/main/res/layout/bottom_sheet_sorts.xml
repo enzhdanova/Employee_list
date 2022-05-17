@@ -17,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <RadioGroup
+        android:id="@+id/sortsGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -31,7 +32,8 @@
             android:buttonTint="@color/purple_rb"
             android:textSize="16sp"
             android:textColor="@color/dark_grey"
-            android:text="@string/alphabet_sort"/>
+            android:text="@string/alphabet_sort"
+            android:checked="true"/>
         <RadioButton
             android:id="@+id/birthday_sort"
             android:layout_width="wrap_content"

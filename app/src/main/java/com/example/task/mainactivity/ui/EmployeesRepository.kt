@@ -7,11 +7,28 @@ import com.example.task.mainactivity.utils.Departments
 class EmployeesRepository {
     private val listOfEmloyees = MockeData.users
 
-    fun getAllUsers() = listOfEmloyees
-
     fun getUsersFromDepartment(departments: Departments) : List<User> {
-        return listOfEmloyees.filter {
-            it.department == departments.name.lowercase()
+        return if (departments == Departments.ALL) {
+            listOfEmloyees
+        }
+         else {
+            listOfEmloyees.filter {
+                it.department == departments.name.lowercase()
+            }
+        }
+    }
+
+    //TODO: Думаю это должно быть в слое Domain
+
+    fun getSortedByAlphabetList(users: List<User>) : List<User> {
+        val tmp = users.toMutableList()
+
+        return tmp.sortedBy { it.lastName; it.firstName }
+    }
+
+    fun getSortedByBDList(users: List<User>) : List<User> {
+        return users.sortedBy {
+            it.birthday
         }
     }
 }

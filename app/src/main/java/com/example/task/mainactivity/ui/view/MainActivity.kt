@@ -3,12 +3,15 @@ package com.example.task.mainactivity.ui.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.commit
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.ui.EmployeesRepository
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
+import com.example.task.mainactivity.utils.SortType
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         override fun onItemClick(item: User) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.fragment, ProfileFragment.newInstance(item), ProfileFragment::class.java.simpleName)
+                add(R.id.fragment, ProfileFragment.newInstance(item), ProfileFragment.TAG)
             }
         }
     }
@@ -29,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         override fun onTabSelected(tab: TabLayout.Tab?) {
             println(tab?.text.toString())
             if (tab != null) {
-                viewModel.getUserFromDepartment(Departments.values()[tab.position])
+                viewModel.changeDepartment(Departments.values()[tab.position])
+                viewModel.getUserFromDepartment()
             }
         }
 
@@ -53,7 +57,9 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.uiState.observe(this) {
             uiState ->
-            uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
+            if (viewModel.uiState.value?.error != true) {
+                uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
+            }
         }
     }
 
@@ -79,6 +85,17 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager,
                 SortsModalBottomSheet.TAG
             )
+
+            modalSortsBottomSheet.setFragmentResultListener(SortsModalBottomSheet.REQUEST_KEY) {
+                _, bundle ->
+                val result = bundle.getString(SortsModalBottomSheet.ARG_RESULTSORT) ?: ""
+                println("MyApp: result modalBottomSheet: $result" )
+                viewModel.changeSortType(SortType.valueOf(result))
+                viewModel.getUserFromDepartment()
+            }
+
+
+
         }
 
     }

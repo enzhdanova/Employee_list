@@ -61,6 +61,7 @@ class ProfileFragment : Fragment() {
     }
 
     companion object {
+        val TAG: String = ProfileFragment::class.java.simpleName
 
         private const val ARG_NAME = "param_name"
         private const val ARG_DATE = "param_date"
