@@ -24,15 +24,12 @@ class EmployeesViewModel(
     }
 
     fun getUserFromDepartment() {
-        val users = employeesRepository.getUsersFromDepartment(
-            _uiState.value?.departments ?: Departments.ALL
+        val users = employeesRepository.getEmploeeList(
+            uiState.value?.departments ?: Departments.ALL,
+            uiState.value?.sortType ?: SortType.ALPHABET
         )
-        val result = when (_uiState.value?.sortType ?: SortType.ALPHABET) {
-            SortType.ALPHABET -> employeesRepository.getSortedByAlphabetList(users)
-            SortType.DATE_BIRTHDATE -> employeesRepository.getSortedByBDList(users)
-        }
 
-        _uiState.value = _uiState.value?.copy(employeeList = result)
+        _uiState.value = _uiState.value?.copy(employeeList = users)
 
     }
 

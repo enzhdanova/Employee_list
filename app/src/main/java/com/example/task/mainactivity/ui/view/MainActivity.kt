@@ -9,6 +9,7 @@ import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.ui.EmployeesRepository
+import com.example.task.mainactivity.ui.data.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
@@ -20,11 +21,14 @@ class MainActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
 
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
-        override fun onItemClick(item: User) {
+        override fun onItemClick(item: UIModel) {
+            /*
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 add(R.id.fragment, ProfileFragment.newInstance(item), ProfileFragment.TAG)
             }
+
+             */
         }
     }
 
