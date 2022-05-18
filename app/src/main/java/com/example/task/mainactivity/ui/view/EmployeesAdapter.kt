@@ -87,10 +87,10 @@ class EmployeesAdapter(
                 userNickname.text = userTag
                 //TODO: РАзобраться в чем дело, не грузится картинка
                 // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
-                Glide
+             /*   Glide
                     .with(itemView)
                     .load(avatarUrl)
-                    .into(userPhoto)
+                    .into(userPhoto)*/
             }
         }
     }
@@ -118,10 +118,10 @@ class EmployeesAdapter(
                 userBirthday.text = birthday.format(formatter)
                 //TODO: РАзобраться в чем дело, не грузится картинка
                 // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
-                Glide
+                /*Glide
                     .with(itemView)
                     .load(userItem.avatarUrl)
-                    .into(userPhoto)
+                    .into(userPhoto)*/
             }
         }
     }

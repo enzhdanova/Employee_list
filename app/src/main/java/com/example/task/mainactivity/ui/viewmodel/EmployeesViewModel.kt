@@ -3,16 +3,12 @@ package com.example.task.mainactivity.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.task.mainactivity.data.MockeData
-import com.example.task.mainactivity.data.User
-import com.example.task.mainactivity.ui.EmployeesRepository
+import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
-import kotlinx.coroutines.launch
 
 class EmployeesViewModel(
-    private val employeesRepository: EmployeesRepository
+    private val employeesUseCase: EmployeesUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<EmployeesUIState>()
@@ -24,7 +20,7 @@ class EmployeesViewModel(
     }
 
     fun getUserFromDepartment() {
-        val users = employeesRepository.getEmploeeList(
+        val users = employeesUseCase.getEmploeeList(
             uiState.value?.departments ?: Departments.ALL,
             uiState.value?.sortType ?: SortType.ALPHABET
         )

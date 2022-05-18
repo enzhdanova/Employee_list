@@ -36,6 +36,28 @@ object MockeData {
             "980-962-6297"
         ),
         User(
+            "514bec78-d65d-4140-81d7-e23fb3fc3ba8",
+            "https://i.pravatar.cc/300",
+            "Hanna11",
+            "Kling",
+            "PY",
+            "android",
+            "Strategist",
+            LocalDate.parse("1994-05-17"),
+            "980-962-6297"
+        ),
+        User(
+            "514bec78-d65d-4140-81d7-e23fb3fc3ba8",
+            "https://i.pravatar.cc/300",
+            "Hanna22",
+            "Kling",
+            "PY",
+            "android",
+            "Strategist",
+            LocalDate.parse("1994-05-19"),
+            "980-962-6297"
+        ),
+        User(
             "e66c4836-ad5f-4b93-b82a-9251b0f9aca2",
             "https://i.pravatar.cc/300",
             "River",

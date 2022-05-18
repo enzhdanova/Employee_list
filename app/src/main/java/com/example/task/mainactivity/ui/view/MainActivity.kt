@@ -2,13 +2,9 @@ package com.example.task.mainactivity.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.lifecycleScope
-import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
-import com.example.task.mainactivity.ui.EmployeesRepository
+import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.ui.data.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
@@ -17,7 +13,7 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel = EmployeesViewModel(EmployeesRepository())
+    private val viewModel = EmployeesViewModel(EmployeesUseCase())
     private var binding: ActivityMainBinding? = null
 
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {

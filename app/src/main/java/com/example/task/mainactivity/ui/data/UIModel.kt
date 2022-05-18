@@ -13,7 +13,7 @@ sealed class UIModel {
     ) : UIModel()
 
     data class Separator(
-        val year: String
+        val year: String = ""
     )  : UIModel()
 }
 
