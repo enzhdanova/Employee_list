@@ -77,9 +77,9 @@ class EmployeesUseCase {
                 }
 
                 val result = mutableListOf<UIModel>()
-                result.addAll(getUIModelForUserBD(usersAfterNowDay))
-                result.add(UIModel.Separator())
                 result.addAll(getUIModelForUserBD(usersBeforNowDay))
+                result.add(UIModel.Separator())
+                result.addAll(getUIModelForUserBD(usersAfterNowDay))
 
                 println("MyApp: +1    ${result.size} ")
 
