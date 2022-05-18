@@ -24,19 +24,14 @@ class EmployeesUseCase {
     }
 
 
-    private  fun getSortedByAlphabetList(users: List<User>): List<User> {
+    private fun getSortedByAlphabetList(users: List<User>): List<User> {
         val tmp = users.toMutableList()
 
         return tmp.sortedBy { it.lastName; it.firstName }
     }
 
-    private fun getSortedByBDList(users: List<User>): List<User> {
-        val nowDay = LocalDate.now().dayOfMonth
-        val nowMonth = LocalDate.now().month
-
-        return users.sortedBy {
-            it.birthday.dayOfMonth; it.birthday.month
-        }
+    private fun getSortedByBDList(users: List<User>) = users.sortedBy {
+        it.birthday.dayOfMonth; it.birthday.month
     }
 
     fun getEmploeeList(departments: Departments, sortType: SortType): List<UIModel> {
@@ -51,50 +46,34 @@ class EmployeesUseCase {
                 }
             }
             SortType.DATE_BIRTHDATE -> {
+                //TODO: это бы в отдельную функцию
                 val sortUser = getSortedByBDList(users)
-
-                println("MyApp: all")
-                sortUser.forEach {
-                    println("MyApp:" + it.birthday)
-                }
 
                 val usersBeforNowDay = sortUser.takeWhile {
                     it.birthday.dayOfYear < nowDay.dayOfYear
                 }
 
-
-
-                println("MyApp: usersBeforNowDay ")
-                usersBeforNowDay.forEach {
-                    println("MyApp:" + it.birthday)
-                }
-
                 val usersAfterNowDay = sortUser.takeLast(sortUser.size - usersBeforNowDay.size)
 
-                println("MyApp: usersAfterNowDay")
-                usersAfterNowDay.forEach {
-                    println("MyApp:" + it.birthday)
-                }
-
                 val result = mutableListOf<UIModel>()
-                result.addAll(getUIModelForUserBD(usersBeforNowDay))
-                result.add(UIModel.Separator())
                 result.addAll(getUIModelForUserBD(usersAfterNowDay))
 
-                println("MyApp: +1    ${result.size} ")
+                if (usersBeforNowDay.isNotEmpty()) {
+                    result.add(UIModel.Separator())
+                    result.addAll(getUIModelForUserBD(usersBeforNowDay))
+                }
 
                 result
             }
         }
     }
 
-    private fun getUIModelForUserBD(users: List<User>) : List<UIModel>{
+    private fun getUIModelForUserBD(users: List<User>): List<UIModel> {
         return users.map {
             val item = userToUserItem(it)
             UIModel.UserWithBirthday(UserWithBirthdayItem(item, it.birthday))
         }
     }
-
 
 
     private fun userToUserItem(user: User) = UserItem(
