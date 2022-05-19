@@ -1,5 +1,6 @@
 package com.example.task.mainactivity.ui.data
 
+import com.example.task.mainactivity.data.User
 import java.time.LocalDate
 import java.util.*
 
@@ -9,7 +10,7 @@ sealed class UIModel {
     ) : UIModel()
 
     data class UserWithBirthday(
-        val item: UserWithBirthdayItem
+        val item: UserItem
     ) : UIModel()
 
     data class Separator(
@@ -24,10 +25,18 @@ data class UserItem(
     val lastName: String,
     val userTag: String,
     val position: String,
-)
-
-data class UserWithBirthdayItem(
-    val userItem: UserItem,
-    val birthday: LocalDate
-)
-
+    val birthday: LocalDate,
+    val phone: String
+) {
+    fun toUser() = User(
+        id = id,
+        avatarUrl = avatarUrl,
+        firstName = firstName,
+        lastName = lastName,
+        userTag = userTag,
+        position = position,
+        birthday = birthday,
+        phone = phone,
+        department = ""
+    )
+}

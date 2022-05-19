@@ -2,10 +2,14 @@ package com.example.task.mainactivity.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
+import com.example.task.mainactivity.R
+import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.ui.data.UIModel
+import com.example.task.mainactivity.ui.data.UserItem
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
@@ -18,13 +22,19 @@ class MainActivity : AppCompatActivity() {
 
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
         override fun onItemClick(item: UIModel) {
-            /*
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add(R.id.fragment, ProfileFragment.newInstance(item), ProfileFragment.TAG)
+
+            val user: User = when (item) {
+                is UIModel.Separator -> return
+                is UIModel.User ->
+                    item.item.toUser()
+                is UIModel.UserWithBirthday ->
+                    item.item.toUser()
             }
 
-             */
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add(R.id.fragment, ProfileFragment.newInstance(user), ProfileFragment.TAG)
+            }
         }
     }
 

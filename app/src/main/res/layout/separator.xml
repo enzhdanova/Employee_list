@@ -4,14 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="30dp">
 
+    <ImageView
+        android:id="@+id/sep1"
+        android:layout_width="72dp"
+        android:layout_height="1dp"
+        android:background="@color/grey_light2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/year"/>
+
     <TextView
         android:id="@+id/year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/user_nickname"
+        android:textColor="@color/grey_light2"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/sep2"
+        android:layout_width="72dp"
+        android:layout_height="1dp"
+        android:background="@color/grey_light2"
+        app:layout_constraintStart_toEndOf="@id/year"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ class EmployeesAdapter(
 
                 val isUserBDItem = oldItem is UIModel.UserWithBirthday
                         && newItem is UIModel.UserWithBirthday
-                        && oldItem.item.userItem.id == newItem.item.userItem.id
+                        && oldItem.item.id == newItem.item.id
 
                 return isUserItem || isUserBDItem
             }
@@ -110,11 +110,11 @@ class EmployeesAdapter(
 
             with(data.item) {
                 val fullUserName =
-                    "${userItem.firstName} ${userItem.lastName}"
+                    "$firstName $lastName"
 
                 userName.text = fullUserName
-                userPosition.text = userItem.position
-                userNickname.text = userItem.userTag
+                userPosition.text = position
+                userNickname.text = userTag
                 userBirthday.text = birthday.format(formatter)
                 //TODO: РАзобраться в чем дело, не грузится картинка
                 // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
