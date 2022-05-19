@@ -1,22 +1,23 @@
 package com.example.task.mainactivity.domain
 
-import com.example.task.mainactivity.data.MockeData
-import com.example.task.mainactivity.data.User
+import com.example.task.mainactivity.data.EmployeesRepository
+import com.example.task.mainactivity.data.model.User
 import com.example.task.mainactivity.ui.data.UIModel
 import com.example.task.mainactivity.ui.data.UserItem
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 import java.time.LocalDate
 
-class EmployeesUseCase {
-    private val listOfEmloyees = MockeData.users
+class EmployeesUseCase(
+    private val employeesRepository: EmployeesRepository
+) {
     private val nowDay = LocalDate.now()
 
     private fun getUsersFromDepartment(departments: Departments): List<User> {
         return if (departments == Departments.ALL) {
-            listOfEmloyees
+            employeesRepository.getUsers()
         } else {
-            listOfEmloyees.filter {
+            employeesRepository.getUsers().filter {
                 it.department == departments.name.lowercase()
             }
         }
@@ -48,13 +49,13 @@ class EmployeesUseCase {
     }
 
     private fun getUIModelForUserBD(users: List<User>): List<UIModel> = users.map {
-        val item = userToUserItem(it)
+        val item = toUIModel(it)
         UIModel.UserWithBirthday(item)
     }
 
 
     private fun getUIModelForUser(users: List<User>): List<UIModel> = users.map {
-        val item = userToUserItem(it)
+        val item = toUIModel(it)
         UIModel.User(item)
     }
 
@@ -78,7 +79,7 @@ class EmployeesUseCase {
         return result
     }
 
-    private fun userToUserItem(user: User) = UserItem(
+    private fun toUIModel(user: User) = UserItem(
         id = user.id,
         lastName = user.lastName,
         firstName = user.firstName,

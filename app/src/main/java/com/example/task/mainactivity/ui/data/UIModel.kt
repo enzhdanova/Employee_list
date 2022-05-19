@@ -1,8 +1,7 @@
 package com.example.task.mainactivity.ui.data
 
-import com.example.task.mainactivity.data.User
+import com.example.task.mainactivity.data.model.User
 import java.time.LocalDate
-import java.util.*
 
 sealed class UIModel {
     data class User(

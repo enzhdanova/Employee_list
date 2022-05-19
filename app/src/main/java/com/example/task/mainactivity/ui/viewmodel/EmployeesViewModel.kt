@@ -37,4 +37,9 @@ class EmployeesViewModel(
         _uiState.value = _uiState.value?.copy(departments = departments)
     }
 
+    fun setFilter(filterString: String){
+        _uiState.value = _uiState.value?.copy(filter = filterString)
+        println("MyApp: "+filterString)
+    }
+
 }

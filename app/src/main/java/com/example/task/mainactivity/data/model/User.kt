@@ -1,7 +1,6 @@
-package com.example.task.mainactivity.data
+package com.example.task.mainactivity.data.model
 
 import java.time.LocalDate
-import java.util.*
 
 data class User(
     val id: String,

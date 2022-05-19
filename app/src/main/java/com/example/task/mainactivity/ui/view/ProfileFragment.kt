@@ -8,13 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.User
+import com.example.task.mainactivity.data.model.User
 import com.example.task.mainactivity.databinding.FragmentProfileBinding
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.util.*
 
 class ProfileFragment : Fragment() {
 

@@ -1,5 +1,6 @@
 package com.example.task.mainactivity.data
 
+import com.example.task.mainactivity.data.model.User
 import java.time.LocalDate
 
 object MockeData {
