@@ -7,9 +7,8 @@ import androidx.fragment.app.setFragmentResultListener
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
-import com.example.task.mainactivity.ui.EmployeesUseCase
+import com.example.task.mainactivity.domain.EmployeesUseCase
 import com.example.task.mainactivity.ui.data.UIModel
-import com.example.task.mainactivity.ui.data.UserItem
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType

@@ -1,4 +1,4 @@
-package com.example.task.mainactivity.ui
+package com.example.task.mainactivity.domain
 
 import com.example.task.mainactivity.data.MockeData
 import com.example.task.mainactivity.data.User

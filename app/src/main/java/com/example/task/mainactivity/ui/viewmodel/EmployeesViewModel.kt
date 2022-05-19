@@ -3,7 +3,7 @@ package com.example.task.mainactivity.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.task.mainactivity.ui.EmployeesUseCase
+import com.example.task.mainactivity.domain.EmployeesUseCase
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 
