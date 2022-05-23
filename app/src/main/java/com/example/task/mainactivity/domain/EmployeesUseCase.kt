@@ -11,7 +11,6 @@ import java.time.LocalDate
 class EmployeesUseCase(
     private val employeesRepository: EmployeesRepository
 ) {
-    private val nowDay = LocalDate.now()
 
     private fun getUsersFromDepartment(departments: Departments): List<User> {
         return if (departments == Departments.ALL) {
@@ -23,17 +22,6 @@ class EmployeesUseCase(
         }
     }
 
-
-    private fun getSortedByAlphabetList(users: List<User>): List<User> {
-        val tmp = users.toMutableList()
-
-        return tmp.sortedBy { it.lastName; it.firstName }
-    }
-
-    private fun getSortedByBDList(users: List<User>) = users.sortedBy {
-        it.birthday.dayOfMonth; it.birthday.month
-    }
-
     fun getEmploeeList(
         departments: Departments,
         sortType: SortType,
@@ -41,13 +29,15 @@ class EmployeesUseCase(
     ): List<UIModel> {
         val users = getUsersFromDepartment(departments).filter {
             it.lastName.contains(filterString, true)
-                    || it.firstName.contains(filterString, true) || it.userTag.contains(filterString, true)
+                    || it.firstName.contains(
+                filterString,
+                true
+            ) || it.userTag.contains(filterString, true)
         }
 
         return when (sortType) {
             SortType.ALPHABET -> {
-                val sortUser = getSortedByAlphabetList(users)
-                getUIModelForUser(sortUser)
+                users.sortedByAlphabet().getUIModelForUser()
             }
             SortType.DATE_BIRTHDATE -> {
                 getSortForNowDay(users)
@@ -55,32 +45,21 @@ class EmployeesUseCase(
         }
     }
 
-    private fun getUIModelForUserBD(users: List<User>): List<UIModel> = users.map {
-        val item = toUIModel(it)
-        UIModel.UserWithBirthday(item)
-    }
-
-
-    private fun getUIModelForUser(users: List<User>): List<UIModel> = users.map {
-        val item = toUIModel(it)
-        UIModel.User(item)
-    }
-
     private fun getSortForNowDay(users: List<User>): List<UIModel> {
-        val sortUser = getSortedByBDList(users)
+        val sortUser = users.sortedByBirthdate()
 
-        val usersBeforNowDay = sortUser.takeWhile {
-            it.birthday.dayOfYear < nowDay.dayOfYear
+        val usersBeforeNowDay = sortUser.takeWhile {
+            it.birthday.beforeNowDay()
         }
 
-        val usersAfterNowDay = sortUser.takeLast(sortUser.size - usersBeforNowDay.size)
+        val usersAfterNowDay = sortUser.takeLast(sortUser.size - usersBeforeNowDay.size)
 
         val result = mutableListOf<UIModel>()
-        result.addAll(getUIModelForUserBD(usersAfterNowDay))
+        result.addAll(usersAfterNowDay.getUIModelForUserWithBd())
 
-        if (usersBeforNowDay.isNotEmpty()) {
+        if (usersBeforeNowDay.isNotEmpty()) {
             result.add(UIModel.Separator())
-            result.addAll(getUIModelForUserBD(usersBeforNowDay))
+            result.addAll(usersBeforeNowDay.getUIModelForUserWithBd())
         }
 
         return result
@@ -97,4 +76,30 @@ class EmployeesUseCase(
         phone = user.phone
     )
 
+    private fun List<User>.getUIModelForUser(): List<UIModel> =
+        this.map { user ->
+            val item = toUIModel(user)
+            UIModel.User(item)
+        }
+
+
+    private fun List<User>.getUIModelForUserWithBd(): List<UIModel> =
+        this.map { user ->
+            val item = toUIModel(user)
+            UIModel.UserWithBirthday(item)
+        }
+
+    private fun List<User>.sortedByAlphabet(): List<User> =
+        this.sortedBy { it.lastName; it.firstName }
+
+    private fun List<User>.sortedByBirthdate(): List<User> = this.sortedBy {
+        it.birthday.dayOfMonth; it.birthday.month
+    }
+
+    private fun LocalDate.beforeNowDay(): Boolean {
+        val nowMonth = LocalDate.now().month
+        val nowDay = LocalDate.now().dayOfMonth
+        return nowMonth > this.month || (nowMonth == this.month && nowDay > this.dayOfMonth)
+
+    }
 }
