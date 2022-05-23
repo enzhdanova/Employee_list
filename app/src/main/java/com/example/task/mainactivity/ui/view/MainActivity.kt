@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             println(tab?.text.toString())
             if (tab != null) {
                 viewModel.changeDepartment(Departments.values()[tab.position])
-                viewModel.getUserFromDepartment()
             }
         }
 
@@ -67,7 +66,6 @@ class MainActivity : AppCompatActivity() {
         modalSortsBottomSheet.setFragmentResultListener(SortsModalBottomSheet.REQUEST_KEY) { _, bundle ->
             val result = bundle.getString(SortsModalBottomSheet.ARG_RESULTSORT) ?: ""
             viewModel.changeSortType(SortType.valueOf(result))
-            viewModel.getUserFromDepartment()
         }
     }
 
@@ -97,8 +95,16 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.uiState.observe(this) {
             uiState ->
-            if (viewModel.uiState.value?.error != true) {
-                uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
+            if (uiState.error) {
+                return@observe
+            }
+
+            if (uiState.needUpdateList)
+            {
+                println("MyApp: viewModel.uiState.value?.error != true")
+                viewModel.getUserFromDepartment()
+               // uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
+                employeesAdapter.submitList(uiState.employeeList)
             }
         }
     }

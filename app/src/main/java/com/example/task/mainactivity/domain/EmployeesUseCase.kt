@@ -34,8 +34,17 @@ class EmployeesUseCase(
         it.birthday.dayOfMonth; it.birthday.month
     }
 
-    fun getEmploeeList(departments: Departments, sortType: SortType): List<UIModel> {
-        val users = getUsersFromDepartment(departments)
+    fun getEmploeeList(
+        departments: Departments,
+        sortType: SortType,
+        filterString: String
+    ): List<UIModel> {
+        val users = getUsersFromDepartment(departments).filter {
+            it.lastName.contains(filterString) ||
+                    it.lastName.contains(filterString) || it.userTag.contains(filterString)
+        }
+
+        println(users)
 
         return when (sortType) {
             SortType.ALPHABET -> {
@@ -87,7 +96,7 @@ class EmployeesUseCase(
         position = user.position,
         userTag = user.userTag,
         birthday = user.birthday,
-         phone = user.phone
+        phone = user.phone
     )
 
 }

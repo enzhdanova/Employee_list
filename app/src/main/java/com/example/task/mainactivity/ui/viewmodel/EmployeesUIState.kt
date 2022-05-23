@@ -9,5 +9,6 @@ data class EmployeesUIState(
     val sortType: SortType = SortType.ALPHABET,
     val departments: Departments = Departments.ALL,
     val filter: String = "",
-    val error: Boolean = false
+    val error: Boolean = false,
+    val needUpdateList: Boolean = true
 )

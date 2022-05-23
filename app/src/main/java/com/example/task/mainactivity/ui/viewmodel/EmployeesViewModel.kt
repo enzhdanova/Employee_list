@@ -20,25 +20,28 @@ class EmployeesViewModel(
     }
 
     fun getUserFromDepartment() {
+        println("MyApp: _______________________________________________")
+        println("MyApp: getUserFromDepartment() ")
         val users = employeesUseCase.getEmploeeList(
-            uiState.value?.departments ?: Departments.ALL,
-            uiState.value?.sortType ?: SortType.ALPHABET
+            departments = uiState.value?.departments ?: Departments.ALL,
+            sortType = uiState.value?.sortType ?: SortType.ALPHABET,
+            filterString = uiState.value?.filter ?: ""
         )
 
-        _uiState.value = _uiState.value?.copy(employeeList = users)
+        _uiState.value = _uiState.value?.copy(employeeList = users, needUpdateList = false)
 
     }
 
     fun changeSortType(sortType: SortType) {
-        _uiState.value = _uiState.value?.copy(sortType = sortType)
+        _uiState.value = _uiState.value?.copy(sortType = sortType, needUpdateList = true)
     }
 
     fun changeDepartment(departments: Departments) {
-        _uiState.value = _uiState.value?.copy(departments = departments)
+        _uiState.value = _uiState.value?.copy(departments = departments, needUpdateList = true)
     }
 
     fun setFilter(filterString: String){
-        _uiState.value = _uiState.value?.copy(filter = filterString)
+        _uiState.value = _uiState.value?.copy(filter = filterString, needUpdateList = true)
         println("MyApp: "+filterString)
     }
 
