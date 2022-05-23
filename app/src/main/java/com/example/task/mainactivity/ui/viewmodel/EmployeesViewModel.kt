@@ -16,21 +16,16 @@ class EmployeesViewModel(
 
     init {
         _uiState.value = EmployeesUIState()
-        println("MyApp: init")
-  //      getUserFromDepartment()
     }
 
     fun getUserFromDepartment() {
-        println("MyApp: _______________________________________________")
-        println("MyApp: getUserFromDepartment() ")
-        val users = employeesUseCase.getEmploeeList(
+        val users = employeesUseCase.getEmployeeList(
             departments = uiState.value?.departments ?: Departments.ALL,
             sortType = uiState.value?.sortType ?: SortType.ALPHABET,
             filterString = uiState.value?.filter ?: ""
         )
 
         _uiState.value = _uiState.value?.copy(employeeList = users, needUpdateList = false)
-
     }
 
     fun changeSortType(sortType: SortType) {
@@ -43,7 +38,6 @@ class EmployeesViewModel(
 
     fun setFilter(filterString: String){
         _uiState.value = _uiState.value?.copy(filter = filterString, needUpdateList = true)
-        println("MyApp: "+filterString)
     }
 
 }

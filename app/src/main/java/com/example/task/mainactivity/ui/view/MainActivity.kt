@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val tabSelectedListener = object : TabLayout.OnTabSelectedListener{
+    private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
             println(tab?.text.toString())
             if (tab != null) {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val changeFilter = object :TextWatcher {
+    private val changeFilter = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
 
@@ -93,30 +93,26 @@ class MainActivity : AppCompatActivity() {
 
         initView()
 
-        viewModel.uiState.observe(this) {
-            uiState ->
+        viewModel.uiState.observe(this) { uiState ->
             if (uiState.error) {
                 return@observe
             }
 
             if (uiState.needUpdateList) {
-                println("MyApp: viewModel.uiState.value?.error != true")
                 viewModel.getUserFromDepartment()
                 return@observe
             }
-               // uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
             employeesAdapter.submitList(uiState.employeeList)
-
         }
     }
 
-    private fun initView(){
+    private fun initView() {
         binding?.recyclerView?.apply {
             adapter = employeesAdapter
             addItemDecoration(EmployeesItemDecoration(context))
         }
 
-        for (tab in Departments.values()){
+        for (tab in Departments.values()) {
             binding?.tabs?.apply {
                 val newTab = this.newTab().setText(tab.dep)
                 addTab(newTab)

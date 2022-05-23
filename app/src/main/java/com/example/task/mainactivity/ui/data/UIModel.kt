@@ -14,7 +14,7 @@ sealed class UIModel {
 
     data class Separator(
         val year: String = ""
-    )  : UIModel()
+    ) : UIModel()
 }
 
 data class UserItem(

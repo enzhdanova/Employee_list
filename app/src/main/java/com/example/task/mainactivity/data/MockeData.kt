@@ -5,7 +5,8 @@ import java.time.LocalDate
 
 object MockeData {
     val users = listOf(
-        User(   "e0fceffa-cef3-45f7-97c6-6be2e3705927",
+        User(
+            "e0fceffa-cef3-45f7-97c6-6be2e3705927",
             "https://i.pravatar.cc/300",
             "Dee",
             "Reichert",
@@ -13,7 +14,8 @@ object MockeData {
             "back_office",
             "Technician",
             LocalDate.parse("2004-08-02"),
-            "802-623-1785"),
+            "802-623-1785"
+        ),
         User(
             "6712da93-2b1c-4ed3-a169-c69cf74c3291",
             "https://i.pravatar.cc/300",

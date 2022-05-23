@@ -23,8 +23,7 @@ class EmployeesItemDecoration(context: Context) : RecyclerView.ItemDecoration() 
         val position = parent.getChildAdapterPosition(view)
         if (position == RecyclerView.NO_POSITION) return
 
-        val newRect = when (position)
-        {
+        val newRect = when (position) {
             0 -> Rect(margin16, margin22, margin16, margin6)
             state.itemCount - 1 -> Rect(margin16, margin6, margin16, margin22)
             else -> Rect(margin16, margin6, margin16, margin6)

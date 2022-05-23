@@ -22,7 +22,7 @@ class EmployeesUseCase(
         }
     }
 
-    fun getEmploeeList(
+    fun getEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
@@ -100,6 +100,6 @@ class EmployeesUseCase(
         val nowMonth = LocalDate.now().month
         val nowDay = LocalDate.now().dayOfMonth
         return nowMonth > this.month || (nowMonth == this.month && nowDay > this.dayOfMonth)
-
     }
+
 }

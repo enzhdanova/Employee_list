@@ -53,9 +53,9 @@ class ProfileFragment : Fragment() {
     }
 
     private val listenerBack = View.OnClickListener {
-       activity?.supportFragmentManager?.commit {
+        activity?.supportFragmentManager?.commit {
             remove(this@ProfileFragment)
-       }
+        }
     }
 
     companion object {
