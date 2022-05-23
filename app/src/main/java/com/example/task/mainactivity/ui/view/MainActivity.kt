@@ -99,13 +99,14 @@ class MainActivity : AppCompatActivity() {
                 return@observe
             }
 
-            if (uiState.needUpdateList)
-            {
+            if (uiState.needUpdateList) {
                 println("MyApp: viewModel.uiState.value?.error != true")
                 viewModel.getUserFromDepartment()
-               // uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
-                employeesAdapter.submitList(uiState.employeeList)
+                return@observe
             }
+               // uiState.employeeList?.let { data -> employeesAdapter.submitList(data) }
+            employeesAdapter.submitList(uiState.employeeList)
+
         }
     }
 

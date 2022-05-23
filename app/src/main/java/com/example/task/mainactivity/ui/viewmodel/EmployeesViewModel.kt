@@ -16,7 +16,8 @@ class EmployeesViewModel(
 
     init {
         _uiState.value = EmployeesUIState()
-        getUserFromDepartment()
+        println("MyApp: init")
+  //      getUserFromDepartment()
     }
 
     fun getUserFromDepartment() {

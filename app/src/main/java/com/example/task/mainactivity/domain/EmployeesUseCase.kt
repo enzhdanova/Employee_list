@@ -40,11 +40,9 @@ class EmployeesUseCase(
         filterString: String
     ): List<UIModel> {
         val users = getUsersFromDepartment(departments).filter {
-            it.lastName.contains(filterString) ||
-                    it.lastName.contains(filterString) || it.userTag.contains(filterString)
+            it.lastName.contains(filterString, true)
+                    || it.firstName.contains(filterString, true) || it.userTag.contains(filterString, true)
         }
-
-        println(users)
 
         return when (sortType) {
             SortType.ALPHABET -> {
