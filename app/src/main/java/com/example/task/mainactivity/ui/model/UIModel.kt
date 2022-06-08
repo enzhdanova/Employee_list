@@ -15,6 +15,8 @@ sealed class UIModel {
     data class Separator(
         val year: String = ""
     ) : UIModel()
+
+    object NotFound : UIModel()
 }
 
 data class UserItem(

@@ -68,7 +68,6 @@ class ProfileFragment : Fragment() {
         private const val ARG_POSITION = "param_position"
         private const val ARG_PHOTO = "param_photo"
 
-        @JvmStatic
         fun newInstance(user: User) =
             ProfileFragment().apply {
                 arguments = Bundle().apply {

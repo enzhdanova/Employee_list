@@ -32,7 +32,10 @@ class EmployeesUseCase(
                             || user.userTag.contains(filterString, true)
                 }.getSortList(sortType)
 
-            return Result.success(users)
+            return if (users.isEmpty())
+                Result.success(listOf(UIModel.NotFound))
+            else
+                Result.success(users)
         }
 
         return Result.failure(Exception())

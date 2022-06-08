@@ -47,6 +47,7 @@ class EmployeesAdapter(
             R.layout.user_card -> UserViewHolder(layoutInflater)
             R.layout.user_card_bd -> UserBDViewHolder(layoutInflater)
             R.layout.separator -> SeparatorViewHolder(layoutInflater)
+            R.layout.user_not_found -> NotFoundViewHolder(layoutInflater)
             else -> throw IllegalStateException("Unknown view")
         }
     }
@@ -66,6 +67,7 @@ class EmployeesAdapter(
         is UIModel.User -> R.layout.user_card
         is UIModel.UserWithBirthday -> R.layout.user_card_bd
         is UIModel.Separator -> R.layout.separator
+        is UIModel.NotFound -> R.layout.user_not_found
     }
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -139,6 +141,8 @@ class EmployeesAdapter(
             year.text = LocalDate.now().year.inc().toString()
         }
     }
+
+    inner class NotFoundViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     interface EmployeesAdapterListener {
         fun onItemClick(item: UIModel)

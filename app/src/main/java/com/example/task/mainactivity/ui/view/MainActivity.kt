@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                     item.item.toUser()
                 is UIModel.UserWithBirthday ->
                     item.item.toUser()
+                is UIModel.NotFound -> return
             }
 
             supportFragmentManager.commit {
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.uiState.observe(this) { uiState ->
             if (uiState.error) {
+                showErrorFragment()
                 return@observe
             }
 
@@ -102,6 +104,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.getUserFromDepartment()
                 return@observe
             }
+
             employeesAdapter.submitList(uiState.employeeList)
         }
     }
@@ -124,5 +127,17 @@ class MainActivity : AppCompatActivity() {
         binding?.sortsUser?.setOnClickListener(menuClickListener)
 
         binding?.searchTextview?.addTextChangedListener(changeFilter)
+    }
+
+    private fun showErrorFragment(){
+        val errorFragment = ErrorFragment.newInstance()
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            add(R.id.fragment, errorFragment, ErrorFragment.TAG)
+        }
+
+        errorFragment.setFragmentResultListener(ErrorFragment.REQUEST_KEY) { _, _ ->
+            viewModel.getUserFromDepartment()
+        }
     }
 }

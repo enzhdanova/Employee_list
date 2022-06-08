@@ -20,4 +20,8 @@ class EmployeesRepository {
         }
     }
 
+    /*
+    TODO: ДЛЯ ТЕСТИРОВАНИЯ!
+    suspend fun getUserError() = Result.failure<List<User>>(Exception())
+*/
 }

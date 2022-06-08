@@ -29,9 +29,11 @@ class EmployeesViewModel(
             )
 
             users.onSuccess {
+                println("MyApp: on success")
                 _uiState.value = _uiState.value?.copy(employeeList = it, needUpdateList = false)
             }.onFailure {
-                _uiState.value = _uiState.value?.copy(error = true)//TODO: ERROR MESSAGE ADD
+                println("MyApp: on Failure")
+                _uiState.value = _uiState.value?.copy(error = true)
             }
         }
     }

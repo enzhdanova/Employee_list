@@ -13,4 +13,7 @@
     <string name="title_sorts">Сортировка</string>
     <string name="users_not_found">Мы никого не нашли</string>
     <string name="enter_other_user">Попробуй скорректировать запрос</string>
+    <string name="error_title">Какой-то сверхразум все сломал</string>
+    <string name="error_subtitle">Постараемся быстро починить</string>
+    <string name="error_again">Попробовать снова</string>
 </resources>

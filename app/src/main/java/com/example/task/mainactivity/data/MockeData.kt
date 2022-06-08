@@ -3,6 +3,10 @@ package com.example.task.mainactivity.data
 import com.example.task.mainactivity.data.model.User
 import java.time.LocalDate
 
+object MockeDataEmpty{
+    val users = listOf<User>()
+}
+
 object MockeData {
     val users = listOf(
         User(
