@@ -1,6 +1,6 @@
 package com.example.task.mainactivity.ui.viewmodel
 
-import com.example.task.mainactivity.ui.data.UIModel
+import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 

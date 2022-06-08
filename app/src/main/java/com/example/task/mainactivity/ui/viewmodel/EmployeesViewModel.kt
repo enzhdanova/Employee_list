@@ -3,9 +3,11 @@ package com.example.task.mainactivity.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.task.mainactivity.domain.EmployeesUseCase
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
+import kotlinx.coroutines.launch
 
 class EmployeesViewModel(
     private val employeesUseCase: EmployeesUseCase
@@ -19,13 +21,19 @@ class EmployeesViewModel(
     }
 
     fun getUserFromDepartment() {
-        val users = employeesUseCase.getEmployeeList(
-            departments = uiState.value?.departments ?: Departments.ALL,
-            sortType = uiState.value?.sortType ?: SortType.ALPHABET,
-            filterString = uiState.value?.filter ?: ""
-        )
+        viewModelScope.launch {
+            val users = employeesUseCase.getEmployeeList(
+                departments = uiState.value?.departments ?: Departments.ALL,
+                sortType = uiState.value?.sortType ?: SortType.ALPHABET,
+                filterString = uiState.value?.filter ?: ""
+            )
 
-        _uiState.value = _uiState.value?.copy(employeeList = users, needUpdateList = false)
+            users.onSuccess { users ->
+                _uiState.value = _uiState.value?.copy(employeeList = users, needUpdateList = false)
+            }.onFailure {
+                _uiState.value = _uiState.value?.copy(error = true)//TODO: ERROR MESSAGE ADD
+            }
+        }
     }
 
     fun changeSortType(sortType: SortType) {

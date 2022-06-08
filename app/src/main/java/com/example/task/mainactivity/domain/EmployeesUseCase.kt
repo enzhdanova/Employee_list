@@ -2,31 +2,54 @@ package com.example.task.mainactivity.domain
 
 import com.example.task.mainactivity.data.EmployeesRepository
 import com.example.task.mainactivity.data.model.User
-import com.example.task.mainactivity.ui.data.UIModel
-import com.example.task.mainactivity.ui.data.UserItem
+import com.example.task.mainactivity.ui.model.UIModel
+import com.example.task.mainactivity.ui.model.UserItem
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 import java.time.LocalDate
 
 class EmployeesUseCase(
     private val employeesRepository: EmployeesRepository
 ) {
 
+    private val useCaseState: MutableList<User> = mutableListOf()
+
+    private suspend fun getEmployeesInRepo(): Result<List<User>> {
+        return withContext(Dispatchers.IO){
+            try {
+                employeesRepository.getUsers()
+            } catch (io: Exception) {
+                Result.failure(io)
+            }
+        }
+    }
+
     private fun getUsersFromDepartment(departments: Departments): List<User> {
         return if (departments == Departments.ALL) {
-            employeesRepository.getUsers()
+            useCaseState
         } else {
-            employeesRepository.getUsers().filter {
+            useCaseState.filter {
                 it.department == departments.name.lowercase()
             }
         }
     }
 
-    fun getEmployeeList(
+    suspend fun getEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
-    ): List<UIModel> {
+    ): Result<List<UIModel>> {
+        val resultFromRepository = getEmployeesInRepo()
+        resultFromRepository.onSuccess {
+            useCaseState.clear()
+            useCaseState.addAll(it)
+        }.onFailure {
+            return Result.failure(Exception())
+        }
+
         val users = getUsersFromDepartment(departments).filter {
             it.lastName.contains(filterString, true)
                     || it.firstName.contains(
@@ -37,10 +60,12 @@ class EmployeesUseCase(
 
         return when (sortType) {
             SortType.ALPHABET -> {
-                users.sortedByAlphabet().getUIModelForUser()
+                val resultList = users.sortedByAlphabet().getUIModelForUser()
+                Result.success(resultList)
             }
             SortType.DATE_BIRTHDATE -> {
-                getSortForNowDay(users)
+                val resultList = getSortForNowDay(users)
+                Result.success(resultList)
             }
         }
     }

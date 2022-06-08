@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/Employee_list/app/src/main/res/layout/layout_error.xml" value="0.14719202898550723" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/Employee_list/app/src/main/res/layout/user_card_bd.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/katerinskiy/AndroidStudioProject/Employee_list/app/src/main/res/layout/user_not_found.xml" value="0.12310030395136778" />
         <entry key="..\:/Users/kzhdanov/AndroidStudioProjects/Employee_list/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2115" />
         <entry key="..\:/Users/kzhdanov/AndroidStudioProjects/Employee_list/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2115" />
         <entry key="..\:/Users/kzhdanov/AndroidStudioProjects/Employee_list/app/src/main/res/drawable/modal_bottom_sheet.xml" value="0.2085" />

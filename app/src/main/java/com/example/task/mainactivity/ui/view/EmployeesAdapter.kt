@@ -10,7 +10,7 @@ import com.example.task.mainactivity.R
 import com.example.task.mainactivity.databinding.SeparatorBinding
 import com.example.task.mainactivity.databinding.UserCardBdBinding
 import com.example.task.mainactivity.databinding.UserCardBinding
-import com.example.task.mainactivity.ui.data.UIModel
+import com.example.task.mainactivity.ui.model.UIModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

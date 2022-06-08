@@ -12,7 +12,7 @@ import com.example.task.mainactivity.data.EmployeesRepository
 import com.example.task.mainactivity.data.model.User
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.domain.EmployeesUseCase
-import com.example.task.mainactivity.ui.data.UIModel
+import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
