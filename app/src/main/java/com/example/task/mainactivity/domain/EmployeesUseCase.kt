@@ -15,63 +15,42 @@ class EmployeesUseCase(
     private val employeesRepository: EmployeesRepository
 ) {
 
-    private val useCaseState: MutableList<User> = mutableListOf()
-
-    private suspend fun getEmployeesInRepo(): Result<List<User>> {
-        return withContext(Dispatchers.IO){
-            try {
-                employeesRepository.getUsers()
-            } catch (io: Exception) {
-                Result.failure(io)
-            }
-        }
-    }
-
-    private fun getUsersFromDepartment(departments: Departments): List<User> {
-        return if (departments == Departments.ALL) {
-            useCaseState
-        } else {
-            useCaseState.filter {
-                it.department == departments.name.lowercase()
-            }
-        }
-    }
-
     suspend fun getEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
     ): Result<List<UIModel>> {
-        val resultFromRepository = getEmployeesInRepo()
-        resultFromRepository.onSuccess {
-            useCaseState.clear()
-            useCaseState.addAll(it)
-        }.onFailure {
-            return Result.failure(Exception())
+        val resultFromRepository = employeesRepository.getUsers()
+
+        resultFromRepository.onFailure {
+            return Result.failure(it)
+        }.onSuccess { usersList ->
+            val users: List<UIModel> = usersList.getUsersFromDepartment(departments)
+                .filter { user ->
+                    user.lastName.contains(filterString, true)
+                            || user.firstName.contains(filterString, true)
+                            || user.userTag.contains(filterString, true)
+                }.getSortList(sortType)
+
+            return Result.success(users)
         }
 
-        val users = getUsersFromDepartment(departments).filter {
-            it.lastName.contains(filterString, true)
-                    || it.firstName.contains(
-                filterString,
-                true
-            ) || it.userTag.contains(filterString, true)
-        }
-
-        return when (sortType) {
-            SortType.ALPHABET -> {
-                val resultList = users.sortedByAlphabet().getUIModelForUser()
-                Result.success(resultList)
-            }
-            SortType.DATE_BIRTHDATE -> {
-                val resultList = getSortForNowDay(users)
-                Result.success(resultList)
-            }
-        }
+        return Result.failure(Exception())
     }
 
-    private fun getSortForNowDay(users: List<User>): List<UIModel> {
-        val sortUser = users.sortedByBirthdate()
+    private fun List<User>.getSortList(sortType: SortType): List<UIModel> =
+        when (sortType) {
+            SortType.ALPHABET -> {
+                sortedByAlphabet().getUIModelForUser()
+            }
+            SortType.DATE_BIRTHDATE -> {
+                getSortForNowDay()
+            }
+        }
+
+
+    private fun List<User>.getSortForNowDay(): List<UIModel> {
+        val sortUser = sortedByBirthdate()
 
         val usersBeforeNowDay = sortUser.takeWhile {
             it.birthday.beforeNowDay()
@@ -109,22 +88,32 @@ class EmployeesUseCase(
 
 
     private fun List<User>.getUIModelForUserWithBd(): List<UIModel> =
-        this.map { user ->
+        map { user ->
             val item = toUIModel(user)
             UIModel.UserWithBirthday(item)
         }
 
     private fun List<User>.sortedByAlphabet(): List<User> =
-        this.sortedBy { it.lastName; it.firstName }
+        sortedBy { it.lastName; it.firstName }
 
-    private fun List<User>.sortedByBirthdate(): List<User> = this.sortedBy {
+    private fun List<User>.sortedByBirthdate(): List<User> = sortedBy {
         it.birthday.dayOfMonth; it.birthday.month
     }
 
     private fun LocalDate.beforeNowDay(): Boolean {
         val nowMonth = LocalDate.now().month
         val nowDay = LocalDate.now().dayOfMonth
-        return nowMonth > this.month || (nowMonth == this.month && nowDay > this.dayOfMonth)
+        return nowMonth > month || (nowMonth == month && nowDay > dayOfMonth)
+    }
+
+    private fun List<User>.getUsersFromDepartment(departments: Departments): List<User> {
+        return if (departments == Departments.ALL) {
+            this
+        } else {
+            this.filter {
+                it.department == departments.name.lowercase()
+            }
+        }
     }
 
 }

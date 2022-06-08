@@ -28,8 +28,8 @@ class EmployeesViewModel(
                 filterString = uiState.value?.filter ?: ""
             )
 
-            users.onSuccess { users ->
-                _uiState.value = _uiState.value?.copy(employeeList = users, needUpdateList = false)
+            users.onSuccess {
+                _uiState.value = _uiState.value?.copy(employeeList = it, needUpdateList = false)
             }.onFailure {
                 _uiState.value = _uiState.value?.copy(error = true)//TODO: ERROR MESSAGE ADD
             }
