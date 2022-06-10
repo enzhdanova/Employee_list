@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.task.mainactivity.domain.EmployeesUseCase
+import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EmployeesViewModel(
+@HiltViewModel
+class EmployeesViewModel @Inject constructor(
     private val employeesUseCase: EmployeesUseCase
 ) : ViewModel() {
 
@@ -46,7 +49,7 @@ class EmployeesViewModel(
         _uiState.value = _uiState.value?.copy(departments = departments, needUpdateList = true)
     }
 
-    fun setFilter(filterString: String){
+    fun setFilter(filterString: String) {
         _uiState.value = _uiState.value?.copy(filter = filterString, needUpdateList = true)
     }
 

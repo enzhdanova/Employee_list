@@ -1,21 +1,20 @@
 package com.example.task.mainactivity.domain
 
-import com.example.task.mainactivity.data.EmployeesRepository
-import com.example.task.mainactivity.data.model.User
+import com.example.task.mainactivity.data.model.Employee
+import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.ui.model.UserItem
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.lang.Exception
 import java.time.LocalDate
+import javax.inject.Inject
 
-class EmployeesUseCase(
+class EmployeesUseCaseImpl @Inject constructor(
     private val employeesRepository: EmployeesRepository
-) {
+) : EmployeesUseCase {
 
-    suspend fun getEmployeeList(
+    override suspend fun getEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
@@ -41,7 +40,7 @@ class EmployeesUseCase(
         return Result.failure(Exception())
     }
 
-    private fun List<User>.getSortList(sortType: SortType): List<UIModel> =
+    private fun List<Employee>.getSortList(sortType: SortType): List<UIModel> =
         when (sortType) {
             SortType.ALPHABET -> {
                 sortedByAlphabet().getUIModelForUser()
@@ -52,7 +51,7 @@ class EmployeesUseCase(
         }
 
 
-    private fun List<User>.getSortForNowDay(): List<UIModel> {
+    private fun List<Employee>.getSortForNowDay(): List<UIModel> {
         val sortUser = sortedByBirthdate()
 
         val usersBeforeNowDay = sortUser.takeWhile {
@@ -72,34 +71,23 @@ class EmployeesUseCase(
         return result
     }
 
-    private fun toUIModel(user: User) = UserItem(
-        id = user.id,
-        lastName = user.lastName,
-        firstName = user.firstName,
-        avatarUrl = user.avatarUrl,
-        position = user.position,
-        userTag = user.userTag,
-        birthday = user.birthday,
-        phone = user.phone
-    )
-
-    private fun List<User>.getUIModelForUser(): List<UIModel> =
+    private fun List<Employee>.getUIModelForUser(): List<UIModel> =
         this.map { user ->
-            val item = toUIModel(user)
+            val item = UserItem.toUIModel(user)
             UIModel.User(item)
         }
 
 
-    private fun List<User>.getUIModelForUserWithBd(): List<UIModel> =
+    private fun List<Employee>.getUIModelForUserWithBd(): List<UIModel> =
         map { user ->
-            val item = toUIModel(user)
+            val item = UserItem.toUIModel(user)
             UIModel.UserWithBirthday(item)
         }
 
-    private fun List<User>.sortedByAlphabet(): List<User> =
+    private fun List<Employee>.sortedByAlphabet(): List<Employee> =
         sortedBy { it.lastName; it.firstName }
 
-    private fun List<User>.sortedByBirthdate(): List<User> = sortedBy {
+    private fun List<Employee>.sortedByBirthdate(): List<Employee> = sortedBy {
         it.birthday.dayOfMonth; it.birthday.month
     }
 
@@ -109,7 +97,7 @@ class EmployeesUseCase(
         return nowMonth > month || (nowMonth == month && nowDay > dayOfMonth)
     }
 
-    private fun List<User>.getUsersFromDepartment(departments: Departments): List<User> {
+    private fun List<Employee>.getUsersFromDepartment(departments: Departments): List<Employee> {
         return if (departments == Departments.ALL) {
             this
         } else {
@@ -118,5 +106,4 @@ class EmployeesUseCase(
             }
         }
     }
-
 }

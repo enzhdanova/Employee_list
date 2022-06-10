@@ -5,29 +5,30 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
 import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.EmployeesRepository
-import com.example.task.mainactivity.data.model.User
+import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.ActivityMainBinding
-import com.example.task.mainactivity.domain.EmployeesUseCase
 import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel = EmployeesViewModel(EmployeesUseCase(EmployeesRepository()))
+    private val viewModel by viewModels<EmployeesViewModel>()
     private var binding: ActivityMainBinding? = null
     private val modalSortsBottomSheet = SortsModalBottomSheet()
 
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
         override fun onItemClick(item: UIModel) {
 
-            val user: User = when (item) {
+            val employee: Employee = when (item) {
                 is UIModel.Separator -> return
                 is UIModel.User ->
                     item.item.toUser()
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.fragment, ProfileFragment.newInstance(user), ProfileFragment.TAG)
+                add(R.id.fragment, ProfileFragment.newInstance(employee), ProfileFragment.TAG)
             }
         }
     }
@@ -129,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         binding?.searchTextview?.addTextChangedListener(changeFilter)
     }
 
-    private fun showErrorFragment(){
+    private fun showErrorFragment() {
         val errorFragment = ErrorFragment.newInstance()
         supportFragmentManager.commit {
             setReorderingAllowed(true)

@@ -1,5 +1,7 @@
 package com.example.task.mainactivity.ui.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.model.User
+import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.FragmentProfileBinding
 import java.time.LocalDate
 import java.time.Period
@@ -42,6 +44,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding?.back?.setOnClickListener(listenerBack)
+        binding?.phone?.setOnClickListener(listenerDialPhoneNumber)
     }
 
     override fun onCreateView(
@@ -58,6 +61,13 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private val listenerDialPhoneNumber = View.OnClickListener {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:${binding?.phone?.text}")
+        }
+        startActivity(intent)
+    }
+
     companion object {
         val TAG: String = ProfileFragment::class.java.simpleName
 
@@ -68,16 +78,16 @@ class ProfileFragment : Fragment() {
         private const val ARG_POSITION = "param_position"
         private const val ARG_PHOTO = "param_photo"
 
-        fun newInstance(user: User) =
+        fun newInstance(employee: Employee) =
             ProfileFragment().apply {
                 arguments = Bundle().apply {
-                    val fullName = user.firstName + " " + user.lastName
+                    val fullName = employee.firstName + " " + employee.lastName
                     putString(ARG_NAME, fullName)
-                    putString(ARG_NICKNAME, user.userTag)
-                    putString(ARG_PHONE, user.phone)
-                    putString(ARG_DATE, user.birthday.toString())
-                    putString(ARG_POSITION, user.position)
-                    putString(ARG_PHOTO, user.avatarUrl)
+                    putString(ARG_NICKNAME, employee.userTag)
+                    putString(ARG_PHONE, employee.phone)
+                    putString(ARG_DATE, employee.birthday.toString())
+                    putString(ARG_POSITION, employee.position)
+                    putString(ARG_PHOTO, employee.avatarUrl)
                 }
             }
     }
