@@ -1,6 +1,6 @@
 package com.example.task.mainactivity.domain
 
-import com.example.task.mainactivity.data.model.Employee
+import com.example.task.mainactivity.data.model.Employees
 import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.ui.model.UserItem
@@ -22,6 +22,7 @@ class EmployeesUseCaseImpl @Inject constructor(
         val resultFromRepository = employeesRepository.getUsers()
 
         resultFromRepository.onFailure {
+            println("MyApp: failure")
             return Result.failure(it)
         }.onSuccess { usersList ->
             val users: List<UIModel> = usersList.getUsersFromDepartment(departments)
@@ -40,7 +41,7 @@ class EmployeesUseCaseImpl @Inject constructor(
         return Result.failure(Exception())
     }
 
-    private fun List<Employee>.getSortList(sortType: SortType): List<UIModel> =
+    private fun List<Employees>.getSortList(sortType: SortType): List<UIModel> =
         when (sortType) {
             SortType.ALPHABET -> {
                 sortedByAlphabet().getUIModelForUser()
@@ -51,7 +52,7 @@ class EmployeesUseCaseImpl @Inject constructor(
         }
 
 
-    private fun List<Employee>.getSortForNowDay(): List<UIModel> {
+    private fun List<Employees>.getSortForNowDay(): List<UIModel> {
         val sortUser = sortedByBirthdate()
 
         val usersBeforeNowDay = sortUser.takeWhile {
@@ -71,23 +72,23 @@ class EmployeesUseCaseImpl @Inject constructor(
         return result
     }
 
-    private fun List<Employee>.getUIModelForUser(): List<UIModel> =
+    private fun List<Employees>.getUIModelForUser(): List<UIModel> =
         this.map { user ->
             val item = UserItem.toUIModel(user)
             UIModel.User(item)
         }
 
 
-    private fun List<Employee>.getUIModelForUserWithBd(): List<UIModel> =
+    private fun List<Employees>.getUIModelForUserWithBd(): List<UIModel> =
         map { user ->
             val item = UserItem.toUIModel(user)
             UIModel.UserWithBirthday(item)
         }
 
-    private fun List<Employee>.sortedByAlphabet(): List<Employee> =
+    private fun List<Employees>.sortedByAlphabet(): List<Employees> =
         sortedBy { it.lastName; it.firstName }
 
-    private fun List<Employee>.sortedByBirthdate(): List<Employee> = sortedBy {
+    private fun List<Employees>.sortedByBirthdate(): List<Employees> = sortedBy {
         it.birthday.dayOfMonth; it.birthday.month
     }
 
@@ -97,7 +98,7 @@ class EmployeesUseCaseImpl @Inject constructor(
         return nowMonth > month || (nowMonth == month && nowDay > dayOfMonth)
     }
 
-    private fun List<Employee>.getUsersFromDepartment(departments: Departments): List<Employee> {
+    private fun List<Employees>.getUsersFromDepartment(departments: Departments): List<Employees> {
         return if (departments == Departments.ALL) {
             this
         } else {

@@ -8,8 +8,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.model.Employee
+import com.example.task.mainactivity.data.model.Employees
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
         override fun onItemClick(item: UIModel) {
 
-            val employee: Employee = when (item) {
+            val employee: Employees = when (item) {
                 is UIModel.Separator -> return
                 is UIModel.User ->
                     item.item.toUser()
@@ -46,7 +47,6 @@ class MainActivity : AppCompatActivity() {
 
     private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
-            println(tab?.text.toString())
             if (tab != null) {
                 viewModel.changeDepartment(Departments.values()[tab.position])
             }
@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeSortType(SortType.valueOf(result))
         }
     }
+
+    private val swipeOnRefreshListener = SwipeRefreshLayout.OnRefreshListener { viewModel.update() }
 
     private val changeFilter = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -103,6 +105,7 @@ class MainActivity : AppCompatActivity() {
 
             if (uiState.needUpdateList) {
                 viewModel.getUserFromDepartment()
+                binding?.swipeLayout?.isRefreshing = false
                 return@observe
             }
 
@@ -111,6 +114,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        binding?.swipeLayout?.setColorSchemeResources(R.color.purple_rb)
+
         binding?.recyclerView?.apply {
             adapter = employeesAdapter
             addItemDecoration(EmployeesItemDecoration(context))
@@ -128,6 +133,8 @@ class MainActivity : AppCompatActivity() {
         binding?.sortsUser?.setOnClickListener(menuClickListener)
 
         binding?.searchTextview?.addTextChangedListener(changeFilter)
+
+        binding?.swipeLayout?.setOnRefreshListener(swipeOnRefreshListener)
     }
 
     private fun showErrorFragment() {

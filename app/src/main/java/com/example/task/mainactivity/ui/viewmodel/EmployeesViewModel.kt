@@ -32,13 +32,15 @@ class EmployeesViewModel @Inject constructor(
             )
 
             users.onSuccess {
-                println("MyApp: on success")
                 _uiState.value = _uiState.value?.copy(employeeList = it, needUpdateList = false)
             }.onFailure {
-                println("MyApp: on Failure")
                 _uiState.value = _uiState.value?.copy(error = true)
             }
         }
+    }
+
+    fun update(){
+        _uiState.value = _uiState.value?.copy(needUpdateList = true)
     }
 
     fun changeSortType(sortType: SortType) {

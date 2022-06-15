@@ -1,11 +1,13 @@
 package com.example.task.mainactivity.ui.view
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.databinding.SeparatorBinding
 import com.example.task.mainactivity.databinding.UserCardBdBinding
@@ -86,12 +88,10 @@ class EmployeesAdapter(
                 userName.text = fullUserName
                 userPosition.text = position
                 userNickname.text = userTag
-                //TODO: РАзобраться в чем дело, не грузится картинка
-                // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
-                /*   Glide
-                       .with(itemView)
-                       .load(avatarUrl)
-                       .into(userPhoto)*/
+                Glide
+                    .with(itemView)
+                    .load("https://i.pravatar.cc/128")
+                    .into(userPhoto)
             }
         }
     }
@@ -117,12 +117,10 @@ class EmployeesAdapter(
                 userPosition.text = position
                 userNickname.text = userTag
                 userBirthday.text = birthday.format(formatter)
-                //TODO: РАзобраться в чем дело, не грузится картинка
-                // userPhoto.setImageURI(Uri.parse("https://i.pravatar.cc/300"))
-                /*Glide
+                Glide
                     .with(itemView)
-                    .load(userItem.avatarUrl)
-                    .into(userPhoto)*/
+                    .load(Uri.parse("https://i.pravatar.cc/128"))
+                    .into(userPhoto)
             }
         }
     }

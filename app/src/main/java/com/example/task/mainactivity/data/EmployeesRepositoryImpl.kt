@@ -1,6 +1,7 @@
 package com.example.task.mainactivity.data
 
-import com.example.task.mainactivity.data.model.Employee
+import com.example.task.mainactivity.BuildConfig
+import com.example.task.mainactivity.data.model.Employees
 import com.example.task.mainactivity.domain.EmployeesRepository
 import com.example.task.mainactivity.network.EmployeesApi
 import kotlinx.coroutines.Dispatchers
@@ -12,14 +13,16 @@ class EmployeesRepositoryImpl @Inject constructor(
     private val employeesApi: EmployeesApi
 ) : EmployeesRepository {
 
-    override suspend fun getUsers(): Result<List<Employee>> {
+    override suspend fun getUsers(): Result<List<Employees>> {
         return withContext(Dispatchers.IO) {
             try {
-                val list =  MockeData.employees
-                /*employeesApi.getEmployees().map {
-                    it.toModel()
-                }*/
+               /* val response = employeesApi.getEmployees().body() ?: emptyList()
 
+                val list = response.map {
+                        it.toModel()
+                    }
+*/
+                val list = MockeData.employees
                 Result.success(list)
             } catch (io: Exception) {
                 Result.failure(io)

@@ -1,6 +1,6 @@
 package com.example.task.mainactivity.ui.model
 
-import com.example.task.mainactivity.data.model.Employee
+import com.example.task.mainactivity.data.model.Employees
 import java.time.LocalDate
 
 sealed class UIModel {
@@ -29,7 +29,7 @@ data class UserItem(
     val birthday: LocalDate,
     val phone: String
 ) {
-    fun toUser() = Employee(
+    fun toUser() = Employees(
         id = id,
         avatarUrl = avatarUrl,
         firstName = firstName,
@@ -42,7 +42,7 @@ data class UserItem(
     )
 
     companion object {
-        fun toUIModel(employee: Employee) = UserItem(
+        fun toUIModel(employee: Employees) = UserItem(
             id = employee.id,
             lastName = employee.lastName,
             firstName = employee.firstName,

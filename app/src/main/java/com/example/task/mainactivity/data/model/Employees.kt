@@ -2,7 +2,7 @@ package com.example.task.mainactivity.data.model
 
 import java.time.LocalDate
 
-data class Employee(
+data class Employees(
     val id: String,
     val avatarUrl: String,
     val firstName: String,
