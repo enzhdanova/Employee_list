@@ -22,7 +22,6 @@ class EmployeesUseCaseImpl @Inject constructor(
         val resultFromRepository = employeesRepository.getUsers()
 
         resultFromRepository.onFailure {
-            println("MyApp: failure")
             return Result.failure(it)
         }.onSuccess { usersList ->
             val users: List<UIModel> = usersList.getUsersFromDepartment(departments)

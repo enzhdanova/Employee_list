@@ -16,12 +16,12 @@ class EmployeesRepositoryImpl @Inject constructor(
     override suspend fun getUsers(): Result<List<Employees>> {
         return withContext(Dispatchers.IO) {
             try {
-               /* val response = employeesApi.getEmployees().body() ?: emptyList()
+                /* val response = employeesApi.getEmployees().body() ?: emptyList()
 
-                val list = response.map {
-                        it.toModel()
-                    }
-*/
+                 val list = response.map {
+                         it.toModel()
+                     }
+ */
                 val list = MockeData.employees
                 Result.success(list)
             } catch (io: Exception) {

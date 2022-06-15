@@ -39,7 +39,7 @@ class EmployeesViewModel @Inject constructor(
         }
     }
 
-    fun update(){
+    fun update() {
         _uiState.value = _uiState.value?.copy(needUpdateList = true)
     }
 
