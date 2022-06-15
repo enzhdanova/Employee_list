@@ -3,7 +3,6 @@ package com.example.task.mainactivity.domain
 import com.example.task.mainactivity.data.model.Employees
 import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.ui.model.UIModel
-import com.example.task.mainactivity.ui.model.UserItem
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 import java.lang.Exception
@@ -43,7 +42,7 @@ class EmployeesUseCaseImpl @Inject constructor(
     private fun List<Employees>.getSortList(sortType: SortType): List<UIModel> =
         when (sortType) {
             SortType.ALPHABET -> {
-                sortedByAlphabet().getUIModelForUser()
+                sortedByAlphabet()
             }
             SortType.DATE_BIRTHDATE -> {
                 getSortForNowDay()
@@ -61,31 +60,32 @@ class EmployeesUseCaseImpl @Inject constructor(
         val usersAfterNowDay = sortUser.takeLast(sortUser.size - usersBeforeNowDay.size)
 
         val result = mutableListOf<UIModel>()
-        result.addAll(usersAfterNowDay.getUIModelForUserWithBd())
+        result.addAll(usersAfterNowDay.getUIModel {
+            UIModel.UserWithBirthday.toUserWithBirthday(it)
+        })
 
         if (usersBeforeNowDay.isNotEmpty()) {
             result.add(UIModel.Separator())
-            result.addAll(usersBeforeNowDay.getUIModelForUserWithBd())
+            result.addAll(usersBeforeNowDay.getUIModel {
+                UIModel.UserWithBirthday.toUserWithBirthday(
+                    it
+                )
+            })
         }
 
         return result
     }
 
-    private fun List<Employees>.getUIModelForUser(): List<UIModel> =
-        this.map { user ->
-            val item = UserItem.toUIModel(user)
-            UIModel.User(item)
-        }
 
-
-    private fun List<Employees>.getUIModelForUserWithBd(): List<UIModel> =
+    private fun List<Employees>.getUIModel(toUiModel: (Employees) -> UIModel): List<UIModel> =
         map { user ->
-            val item = UserItem.toUIModel(user)
-            UIModel.UserWithBirthday(item)
+            toUiModel(user)
         }
 
-    private fun List<Employees>.sortedByAlphabet(): List<Employees> =
-        sortedBy { it.lastName; it.firstName }
+    private fun List<Employees>.sortedByAlphabet(): List<UIModel> =
+        sortedBy { it.lastName; it.firstName }.getUIModel {
+            UIModel.User.toUser(it)
+        }
 
     private fun List<Employees>.sortedByBirthdate(): List<Employees> = sortedBy {
         it.birthday.dayOfMonth; it.birthday.month

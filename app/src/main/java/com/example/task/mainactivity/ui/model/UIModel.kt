@@ -6,11 +6,23 @@ import java.time.LocalDate
 sealed class UIModel {
     data class User(
         val item: UserItem
-    ) : UIModel()
+    ) : UIModel() {
+        companion object {
+            fun toUser(employee: Employees) = User(
+                item = UserItem.toUIModel(employee)
+            )
+        }
+    }
 
     data class UserWithBirthday(
         val item: UserItem
-    ) : UIModel()
+    ) : UIModel() {
+        companion object {
+            fun toUserWithBirthday(employee: Employees) = User(
+                item = UserItem.toUIModel(employee)
+            )
+        }
+    }
 
     data class Separator(
         val year: String = ""
