@@ -1,4 +1,4 @@
-package com.example.task.mainactivity.ui.model
+package com.example.task.mainactivity.domain.entity
 
 import com.example.task.mainactivity.data.model.Employees
 import java.time.LocalDate

@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.model.Employees
 import com.example.task.mainactivity.databinding.ActivityMainBinding
-import com.example.task.mainactivity.ui.model.UIModel
+import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType

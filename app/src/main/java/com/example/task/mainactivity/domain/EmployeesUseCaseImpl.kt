@@ -1,8 +1,8 @@
 package com.example.task.mainactivity.domain
 
 import com.example.task.mainactivity.data.model.Employees
+import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.EmployeesUseCase
-import com.example.task.mainactivity.ui.model.UIModel
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 import java.lang.Exception
