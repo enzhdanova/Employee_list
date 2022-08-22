@@ -2,16 +2,16 @@ package com.example.task.mainactivity.domain
 
 import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.domain.entity.UIModel
-import com.example.task.mainactivity.utils.Departments
+import com.example.task.mainactivity.utils.Department
 import com.example.task.mainactivity.utils.SortType
 import java.time.LocalDate
 
-fun List<Employee>.getEmployeesFromDepartment(departments: Departments): List<Employee> {
-    return if (departments == Departments.ALL) {
+fun List<Employee>.getEmployeesFromDepartment(department: Department): List<Employee> {
+    return if (department == Department.ALL) {
         this
     } else {
         this.filter {
-            it.department == departments.name.lowercase()
+            it.department == department.name.lowercase()
         }
     }
 }
@@ -32,12 +32,11 @@ private fun List<Employee>.sortedByAlphabet(): List<Employee> =
 
 private fun List<Employee>.getSortRelativelyNowDay(): List<Employee> {
     val sortEmployees = sortedByBirthdate()
-
     val employeesBeforeNowDay = sortEmployees.takeWhile {
         it.birthday.beforeNowDay()
     }
-
-    val employeesAfterNowDay = sortEmployees.takeLast(sortEmployees.size - employeesBeforeNowDay.size)
+    val employeesAfterNowDay =
+        sortEmployees.takeLast(sortEmployees.size - employeesBeforeNowDay.size)
 
     val resultSortedEmployees = mutableListOf<Employee>()
     resultSortedEmployees.addAll(employeesAfterNowDay)

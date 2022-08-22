@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
+import com.example.task.mainactivity.databinding.EmployeeCardBdBinding
+import com.example.task.mainactivity.databinding.EmployeeCardBinding
 import com.example.task.mainactivity.databinding.SeparatorBinding
-import com.example.task.mainactivity.databinding.UserCardBdBinding
-import com.example.task.mainactivity.databinding.UserCardBinding
 import com.example.task.mainactivity.domain.entity.UIModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -46,10 +46,10 @@ class EmployeesAdapter(
             .inflate(viewType, parent, false)
 
         return when (viewType) {
-            R.layout.user_card -> UserViewHolder(layoutInflater)
-            R.layout.user_card_bd -> UserBDViewHolder(layoutInflater)
+            R.layout.employee_card -> EmployeeViewHolder(layoutInflater)
+            R.layout.employee_card_bd -> EmployeeBDViewHolder(layoutInflater)
             R.layout.separator -> SeparatorViewHolder(layoutInflater)
-            R.layout.user_not_found -> NotFoundViewHolder(layoutInflater)
+            R.layout.employee_not_found -> NotFoundViewHolder(layoutInflater)
             else -> throw IllegalStateException("Unknown view")
         }
     }
@@ -58,23 +58,23 @@ class EmployeesAdapter(
         val item = getItem(position)
 
         when (holder) {
-            is UserViewHolder -> holder.bind(item as UIModel.EmployeeUI)
-            is UserBDViewHolder -> holder.bind(item as UIModel.EmployeeUIWithBirthday)
+            is EmployeeViewHolder -> holder.bind(item as UIModel.EmployeeUI)
+            is EmployeeBDViewHolder -> holder.bind(item as UIModel.EmployeeUIWithBirthday)
             is SeparatorViewHolder -> holder.bind()
         }
 
     }
 
     override fun getItemViewType(position: Int) = when (getItem(position)) {
-        is UIModel.EmployeeUI -> R.layout.user_card
-        is UIModel.EmployeeUIWithBirthday -> R.layout.user_card_bd
+        is UIModel.EmployeeUI -> R.layout.employee_card
+        is UIModel.EmployeeUIWithBirthday -> R.layout.employee_card_bd
         is UIModel.Separator -> R.layout.separator
-        is UIModel.NotFound -> R.layout.user_not_found
+        is UIModel.NotFound -> R.layout.employee_not_found
     }
 
-    inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class EmployeeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = UserCardBinding.bind(view)
+        private val binding = EmployeeCardBinding.bind(view)
 
         init {
             binding.root.setOnClickListener {
@@ -84,21 +84,21 @@ class EmployeesAdapter(
 
         fun bind(data: UIModel.EmployeeUI) = with(binding) {
             with(data.item) {
-                val fullUserName = "$firstName $lastName"
-                userName.text = fullUserName
-                userPosition.text = position
-                userNickname.text = userTag
+                val fullEmployeeName = "$firstName $lastName"
+                employeeName.text = fullEmployeeName
+                employeePosition.text = position
+                employeeNickname.text = userTag
                 Glide
                     .with(itemView)
-                    .load("https://i.pravatar.cc/128")
-                    .into(userPhoto)
+                    .load(avatarUrl)
+                    .into(employeePhoto)
             }
         }
     }
 
-    inner class UserBDViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class EmployeeBDViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = UserCardBdBinding.bind(view)
+        private val binding = EmployeeCardBdBinding.bind(view)
 
         init {
             binding.root.setOnClickListener {
@@ -110,17 +110,17 @@ class EmployeesAdapter(
             val formatter = DateTimeFormatter.ofPattern("dd MMM")
 
             with(data.item) {
-                val fullUserName =
+                val fullEmployeeName =
                     "$firstName $lastName"
 
-                userName.text = fullUserName
-                userPosition.text = position
-                userNickname.text = userTag
-                userBirthday.text = birthday.format(formatter)
+                employeeName.text = fullEmployeeName
+                employeePosition.text = position
+                employeeNickname.text = userTag
+                employeeBirthday.text = birthday.format(formatter)
                 Glide
                     .with(itemView)
-                    .load(Uri.parse("https://i.pravatar.cc/128"))
-                    .into(userPhoto)
+                    .load(Uri.parse(avatarUrl))
+                    .into(employeePhoto)
             }
         }
     }

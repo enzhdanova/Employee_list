@@ -1,6 +1,6 @@
 package com.example.task.mainactivity.utils
 
-enum class Departments(val dep: String) {
+enum class Department(val dep: String) {
     ALL("Все"),
     ANDROID("Android"),
     IOS("iOS"),

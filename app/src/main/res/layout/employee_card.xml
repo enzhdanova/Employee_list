@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_photo"
+        android:id="@+id/employee_photo"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:src="@color/teal_200"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/employee_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -22,11 +22,11 @@
         android:text="@string/tmp_name"
         android:textColor="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/user_photo"
+        app:layout_constraintStart_toEndOf="@id/employee_photo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_position"
+        android:id="@+id/employee_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,16 +34,16 @@
         android:text="@string/tmp_position"
         android:textColor="@color/dark_grey"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/user_photo"
-        app:layout_constraintTop_toBottomOf="@id/user_name" />
+        app:layout_constraintStart_toEndOf="@id/employee_photo"
+        app:layout_constraintTop_toBottomOf="@id/employee_name" />
 
     <TextView
-        android:id="@+id/user_nickname"
+        android:id="@+id/employee_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/tmp_nickname"
-        app:layout_constraintBottom_toBottomOf="@id/user_name"
-        app:layout_constraintStart_toEndOf="@id/user_name" />
+        app:layout_constraintBottom_toBottomOf="@id/employee_name"
+        app:layout_constraintStart_toEndOf="@id/employee_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

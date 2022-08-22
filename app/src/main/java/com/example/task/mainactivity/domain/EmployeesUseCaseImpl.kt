@@ -3,9 +3,8 @@ package com.example.task.mainactivity.domain
 import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.EmployeesUseCase
-import com.example.task.mainactivity.utils.Departments
+import com.example.task.mainactivity.utils.Department
 import com.example.task.mainactivity.utils.SortType
-import java.lang.Exception
 import javax.inject.Inject
 
 class EmployeesUseCaseImpl @Inject constructor(
@@ -15,15 +14,15 @@ class EmployeesUseCaseImpl @Inject constructor(
     private val employees: MutableList<Employee> = mutableListOf()
 
     override fun getCurrentEmployeeList(
-        departments: Departments,
+        department: Department,
         sortType: SortType,
         filterString: String
     ): Result<List<UIModel>> {
         val copyEmployees = employees
 
-        val employeesUI: List<UIModel> = copyEmployees.getEmployeesFromDepartment(departments)
+        val employeesUI: List<UIModel> = copyEmployees.getEmployeesFromDepartment(department)
             .filter { employee ->
-                isContainsValue(employee, filterString)
+                hasValue(employee, filterString)
             }.getSortedEmployees(sortType)
             .toUIModelRelativelySortType(sortType)
 
@@ -31,7 +30,7 @@ class EmployeesUseCaseImpl @Inject constructor(
     }
 
     override suspend fun fetchEmployees(
-        departments: Departments,
+        department: Department,
         sortType: SortType,
         filterString: String
     ): Result<Boolean> {
@@ -44,7 +43,7 @@ class EmployeesUseCaseImpl @Inject constructor(
         return Result.success(true)
     }
 
-    private fun isContainsValue(employees: Employee, filterString: String): Boolean =
+    private fun hasValue(employees: Employee, filterString: String): Boolean =
         employees.lastName.contains(filterString, true)
                 || employees.firstName.contains(filterString, true)
                 || employees.userTag.contains(filterString, true)

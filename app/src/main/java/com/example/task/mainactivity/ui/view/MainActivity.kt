@@ -14,7 +14,7 @@ import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
-import com.example.task.mainactivity.utils.Departments
+import com.example.task.mainactivity.utils.Department
 import com.example.task.mainactivity.utils.SortType
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
             if (tab != null) {
-                viewModel.changeDepartment(Departments.values()[tab.position])
+                viewModel.changeDepartment(Department.values()[tab.position])
             }
         }
 
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(EmployeesItemDecoration(context))
         }
 
-        for (tab in Departments.values()) {
+        for (tab in Department.values()) {
             binding?.tabs?.apply {
                 val newTab = this.newTab().setText(tab.dep)
                 addTab(newTab)
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.tabs?.addOnTabSelectedListener(tabSelectedListener)
-        binding?.sortsUser?.setOnClickListener(menuClickListener)
+        binding?.sortsEmployee?.setOnClickListener(menuClickListener)
         binding?.searchTextview?.addTextChangedListener(changeFilter)
         binding?.swipeLayout?.setOnRefreshListener(swipeOnRefreshListener)
     }

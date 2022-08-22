@@ -38,7 +38,7 @@
             android:textSize="15sp" />
 
         <ImageButton
-            android:id="@+id/sorts_user"
+            android:id="@+id/sorts_employee"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@color/transparent"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/user_card" />
+            tools:listitem="@layout/employee_card" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.fragment.app.FragmentContainerView

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task.mainactivity.ui.EmployeesUseCase
-import com.example.task.mainactivity.utils.Departments
+import com.example.task.mainactivity.utils.Department
 import com.example.task.mainactivity.utils.SortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class EmployeesViewModel @Inject constructor(
 
     fun getCurrentEmployees() {
         val employees = employeesUseCase.getCurrentEmployeeList(
-            departments = uiState.value?.departments ?: Departments.ALL,
+            department = uiState.value?.department ?: Department.ALL,
             sortType = uiState.value?.sortType ?: SortType.ALPHABET,
             filterString = uiState.value?.filter ?: ""
         )
@@ -40,7 +40,7 @@ class EmployeesViewModel @Inject constructor(
     fun fetchEmployees() {
         viewModelScope.launch {
             val fetchResult = employeesUseCase.fetchEmployees(
-                departments = Departments.ALL,
+                department = Department.ALL,
                 sortType = SortType.ALPHABET,
                 filterString = ""
             )
@@ -57,12 +57,11 @@ class EmployeesViewModel @Inject constructor(
         _uiState.value = _uiState.value?.copy(sortType = sortType, needUpdateList = true)
     }
 
-    fun changeDepartment(departments: Departments) {
-        _uiState.value = _uiState.value?.copy(departments = departments, needUpdateList = true)
+    fun changeDepartment(department: Department) {
+        _uiState.value = _uiState.value?.copy(department = department, needUpdateList = true)
     }
 
     fun setFilter(filterString: String) {
         _uiState.value = _uiState.value?.copy(filter = filterString, needUpdateList = true)
     }
-
 }
