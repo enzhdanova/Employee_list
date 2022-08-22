@@ -22,24 +22,24 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            val birthdate = it.getString(ARG_DATE)
+        arguments?.let { bundle ->
+            val birthdate = bundle.getString(ARG_DATE)
             val age = Period.between(LocalDate.parse(birthdate), LocalDate.now()).years
             val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
-            binding?.name?.text = it.getString(ARG_NAME)
-            binding?.nickname?.text = it.getString(ARG_NICKNAME)
-            binding?.phone?.text = it.getString(ARG_PHONE)
-            binding?.position?.text = it.getString(ARG_POSITION)
+            binding?.name?.text = bundle.getString(ARG_NAME)
+            binding?.nickname?.text = bundle.getString(ARG_NICKNAME)
+            binding?.phone?.text = bundle.getString(ARG_PHONE)
+            binding?.position?.text = bundle.getString(ARG_POSITION)
             binding?.birthday?.text = LocalDate.parse(birthdate).format(formatter)
             binding?.age?.text = resources.getQuantityString(R.plurals.plular_age, age, age)
 
             // TODO: аватарки одни и теже, надо что-то придумать
-            binding?.avatar?.let { it1 ->
+            binding?.avatar?.let { it ->
                 Glide
                     .with(view)
-                    .load("https://i.pravatar.cc/300")
-                    .into(it1)
+                    .load(bundle.getString(ARG_PHOTO))
+                    .into(it)
             }
         }
 
