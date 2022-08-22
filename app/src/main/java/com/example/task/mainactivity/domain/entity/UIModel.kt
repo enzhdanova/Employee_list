@@ -1,25 +1,25 @@
 package com.example.task.mainactivity.domain.entity
 
-import com.example.task.mainactivity.data.model.Employees
+import com.example.task.mainactivity.data.model.Employee
 import java.time.LocalDate
 
 sealed class UIModel {
-    data class User(
-        val item: UserItem
+    data class EmployeeUI(
+        val item: EmployeeItem
     ) : UIModel() {
         companion object {
-            fun toUser(employee: Employees) = User(
-                item = UserItem.toUIModel(employee)
+            fun toUIModel(employee: Employee) = EmployeeUI(
+                item = EmployeeItem.toUIModel(employee)
             )
         }
     }
 
-    data class UserWithBirthday(
-        val item: UserItem
+    data class EmployeeUIWithBirthday(
+        val item: EmployeeItem
     ) : UIModel() {
         companion object {
-            fun toUserWithBirthday(employee: Employees) = User(
-                item = UserItem.toUIModel(employee)
+            fun toUIModel(employee: Employee) = EmployeeUI(
+                item = EmployeeItem.toUIModel(employee)
             )
         }
     }
@@ -31,7 +31,7 @@ sealed class UIModel {
     object NotFound : UIModel()
 }
 
-data class UserItem(
+data class EmployeeItem(
     val id: String,
     val avatarUrl: String,
     val firstName: String,
@@ -41,20 +41,9 @@ data class UserItem(
     val birthday: LocalDate,
     val phone: String
 ) {
-    fun toUser() = Employees(
-        id = id,
-        avatarUrl = avatarUrl,
-        firstName = firstName,
-        lastName = lastName,
-        userTag = userTag,
-        position = position,
-        birthday = birthday,
-        phone = phone,
-        department = ""
-    )
 
     companion object {
-        fun toUIModel(employee: Employees) = UserItem(
+        fun toUIModel(employee: Employee) = EmployeeItem(
             id = employee.id,
             lastName = employee.lastName,
             firstName = employee.firstName,

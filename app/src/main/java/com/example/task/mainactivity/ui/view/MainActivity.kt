@@ -10,7 +10,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.model.Employees
+import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
@@ -29,12 +29,12 @@ class MainActivity : AppCompatActivity() {
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
         override fun onItemClick(item: UIModel) {
 
-            val employee: Employees = when (item) {
+            val employee: Employee = when (item) {
                 is UIModel.Separator -> return
-                is UIModel.User ->
-                    item.item.toUser()
-                is UIModel.UserWithBirthday ->
-                    item.item.toUser()
+                is UIModel.EmployeeUI ->
+                    item.item.toModel()
+                is UIModel.EmployeeUIWithBirthday ->
+                    item.item.toModel()
                 is UIModel.NotFound -> return
             }
 

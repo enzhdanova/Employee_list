@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
-import com.example.task.mainactivity.data.model.Employees
+import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.FragmentProfileBinding
 import java.time.LocalDate
 import java.time.Period
@@ -78,7 +78,7 @@ class ProfileFragment : Fragment() {
         private const val ARG_POSITION = "param_position"
         private const val ARG_PHOTO = "param_photo"
 
-        fun newInstance(employee: Employees) =
+        fun newInstance(employee: Employee) =
             ProfileFragment().apply {
                 arguments = Bundle().apply {
                     val fullName = employee.firstName + " " + employee.lastName

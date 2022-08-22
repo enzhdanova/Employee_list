@@ -24,15 +24,15 @@ class EmployeesAdapter(
         val DIFF = object : DiffUtil.ItemCallback<UIModel>() {
 
             override fun areItemsTheSame(oldItem: UIModel, newItem: UIModel): Boolean {
-                val isUserItem = oldItem is UIModel.User
-                        && newItem is UIModel.User
+                val isEmployeeUIItem = oldItem is UIModel.EmployeeUI
+                        && newItem is UIModel.EmployeeUI
                         && oldItem.item.id == newItem.item.id
 
-                val isUserBDItem = oldItem is UIModel.UserWithBirthday
-                        && newItem is UIModel.UserWithBirthday
+                val isUserBDItem = oldItem is UIModel.EmployeeUIWithBirthday
+                        && newItem is UIModel.EmployeeUIWithBirthday
                         && oldItem.item.id == newItem.item.id
 
-                return isUserItem || isUserBDItem
+                return isEmployeeUIItem || isUserBDItem
             }
 
             override fun areContentsTheSame(oldItem: UIModel, newItem: UIModel) = oldItem == newItem
@@ -58,16 +58,16 @@ class EmployeesAdapter(
         val item = getItem(position)
 
         when (holder) {
-            is UserViewHolder -> holder.bind(item as UIModel.User)
-            is UserBDViewHolder -> holder.bind(item as UIModel.UserWithBirthday)
+            is UserViewHolder -> holder.bind(item as UIModel.EmployeeUI)
+            is UserBDViewHolder -> holder.bind(item as UIModel.EmployeeUIWithBirthday)
             is SeparatorViewHolder -> holder.bind()
         }
 
     }
 
     override fun getItemViewType(position: Int) = when (getItem(position)) {
-        is UIModel.User -> R.layout.user_card
-        is UIModel.UserWithBirthday -> R.layout.user_card_bd
+        is UIModel.EmployeeUI -> R.layout.user_card
+        is UIModel.EmployeeUIWithBirthday -> R.layout.user_card_bd
         is UIModel.Separator -> R.layout.separator
         is UIModel.NotFound -> R.layout.user_not_found
     }
@@ -82,7 +82,7 @@ class EmployeesAdapter(
             }
         }
 
-        fun bind(data: UIModel.User) = with(binding) {
+        fun bind(data: UIModel.EmployeeUI) = with(binding) {
             with(data.item) {
                 val fullUserName = "$firstName $lastName"
                 userName.text = fullUserName
@@ -106,7 +106,7 @@ class EmployeesAdapter(
             }
         }
 
-        fun bind(data: UIModel.UserWithBirthday) = with(binding) {
+        fun bind(data: UIModel.EmployeeUIWithBirthday) = with(binding) {
             val formatter = DateTimeFormatter.ofPattern("dd MMM")
 
             with(data.item) {

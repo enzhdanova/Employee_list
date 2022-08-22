@@ -1,12 +1,11 @@
 package com.example.task.mainactivity.domain
 
-import com.example.task.mainactivity.data.model.Employees
+import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 import java.lang.Exception
-import java.time.LocalDate
 import javax.inject.Inject
 
 class EmployeesUseCaseImpl @Inject constructor(
@@ -23,12 +22,10 @@ class EmployeesUseCaseImpl @Inject constructor(
         resultFromRepository.onFailure {
             return Result.failure(it)
         }.onSuccess { usersList ->
-            val users: List<UIModel> = usersList.getUsersFromDepartment(departments)
+            val users: List<UIModel> = usersList.getEmployeesFromDepartment(departments)
                 .filter { user ->
-                    user.lastName.contains(filterString, true)
-                            || user.firstName.contains(filterString, true)
-                            || user.userTag.contains(filterString, true)
-                }.getSortList(sortType)
+                    isContainsValue(user, filterString)
+                }.getSortedEmployees(sortType).toUIModel(sortType)
 
             return if (users.isEmpty())
                 Result.success(listOf(UIModel.NotFound))
@@ -39,71 +36,8 @@ class EmployeesUseCaseImpl @Inject constructor(
         return Result.failure(Exception())
     }
 
-    private fun List<Employees>.getSortList(sortType: SortType): List<UIModel> =
-        when (sortType) {
-            SortType.ALPHABET -> {
-                sortedByAlphabet()
-            }
-            SortType.DATE_BIRTHDATE -> {
-                getSortForNowDay()
-            }
-        }
-
-
-    private fun List<Employees>.getSortForNowDay(): List<UIModel> {
-        val sortUser = sortedByBirthdate()
-
-        val usersBeforeNowDay = sortUser.takeWhile {
-            it.birthday.beforeNowDay()
-        }
-
-        val usersAfterNowDay = sortUser.takeLast(sortUser.size - usersBeforeNowDay.size)
-
-        val result = mutableListOf<UIModel>()
-        result.addAll(usersAfterNowDay.getUIModel {
-            UIModel.UserWithBirthday.toUserWithBirthday(it)
-        })
-
-        if (usersBeforeNowDay.isNotEmpty()) {
-            result.add(UIModel.Separator())
-            result.addAll(usersBeforeNowDay.getUIModel {
-                UIModel.UserWithBirthday.toUserWithBirthday(
-                    it
-                )
-            })
-        }
-
-        return result
-    }
-
-
-    private fun List<Employees>.getUIModel(toUiModel: (Employees) -> UIModel): List<UIModel> =
-        map { user ->
-            toUiModel(user)
-        }
-
-    private fun List<Employees>.sortedByAlphabet(): List<UIModel> =
-        sortedBy { it.lastName; it.firstName }.getUIModel {
-            UIModel.User.toUser(it)
-        }
-
-    private fun List<Employees>.sortedByBirthdate(): List<Employees> = sortedBy {
-        it.birthday.dayOfMonth; it.birthday.month
-    }
-
-    private fun LocalDate.beforeNowDay(): Boolean {
-        val nowMonth = LocalDate.now().month
-        val nowDay = LocalDate.now().dayOfMonth
-        return nowMonth > month || (nowMonth == month && nowDay > dayOfMonth)
-    }
-
-    private fun List<Employees>.getUsersFromDepartment(departments: Departments): List<Employees> {
-        return if (departments == Departments.ALL) {
-            this
-        } else {
-            this.filter {
-                it.department == departments.name.lowercase()
-            }
-        }
-    }
+    private fun isContainsValue(employees: Employee, filterString: String): Boolean =
+        employees.lastName.contains(filterString, true)
+                || employees.firstName.contains(filterString, true)
+                || employees.userTag.contains(filterString, true)
 }

@@ -14,7 +14,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "BASE_URL", "\"https://stoplight.io/mocks/kode-education/trainee-test/25143926/\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,11 +22,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"https://stoplight.io/mocks/kode-education/trainee-test/25143926/\""
-        }
-
-        debug {
-            buildConfigField "String", "BASE_URL", "\"http://127.0.0.1:3000/\""
         }
     }
     compileOptions {
