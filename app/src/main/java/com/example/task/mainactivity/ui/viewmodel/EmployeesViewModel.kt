@@ -21,38 +21,36 @@ class EmployeesViewModel @Inject constructor(
 
     init {
         fetchEmployees()
-        getCurrentEmployees()
     }
 
     fun getCurrentEmployees() {
+        val employees = employeesUseCase.getCurrentEmployeeList(
+            departments = uiState.value?.departments ?: Departments.ALL,
+            sortType = uiState.value?.sortType ?: SortType.ALPHABET,
+            filterString = uiState.value?.filter ?: ""
+        )
+
+        employees.onSuccess {
+            _uiState.value = _uiState.value?.copy(employeeList = it, needUpdateList = false)
+        }.onFailure {
+            _uiState.value = _uiState.value?.copy(error = true)
+        }
+    }
+
+    fun fetchEmployees() {
         viewModelScope.launch {
-            val users = employeesUseCase.getCurrentEmployeeList(
-                departments = uiState.value?.departments ?: Departments.ALL,
-                sortType = uiState.value?.sortType ?: SortType.ALPHABET,
-                filterString = uiState.value?.filter ?: ""
+            val fetchResult = employeesUseCase.fetchEmployees(
+                departments = Departments.ALL,
+                sortType = SortType.ALPHABET,
+                filterString = ""
             )
 
-            users.onSuccess {
-                _uiState.value = _uiState.value?.copy(employeeList = it, needUpdateList = false)
+            fetchResult.onSuccess {
+                _uiState.value = _uiState.value?.copy(needUpdateList = true)
             }.onFailure {
                 _uiState.value = _uiState.value?.copy(error = true)
             }
         }
-    }
-
-    fun fetchEmployees(){
-        viewModelScope.launch {
-            employeesUseCase.fetchEmployees(
-                departments = Departments.ALL,
-                sortType = SortType.ALPHABET,
-                filterString = "")
-        }
-    }
-
-
-
-    fun update() {
-        _uiState.value = _uiState.value?.copy(needUpdateList = true)
     }
 
     fun changeSortType(sortType: SortType) {

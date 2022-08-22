@@ -52,11 +52,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        override fun onTabUnselected(tab: TabLayout.Tab?) {
-        }
-
-        override fun onTabReselected(tab: TabLayout.Tab?) {
-        }
+        override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+        override fun onTabReselected(tab: TabLayout.Tab?) = Unit
     }
 
     private val menuClickListener = View.OnClickListener {
@@ -64,37 +61,32 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager,
             SortsModalBottomSheet.TAG
         )
-
         modalSortsBottomSheet.setFragmentResultListener(SortsModalBottomSheet.REQUEST_KEY) { _, bundle ->
             val result = bundle.getString(SortsModalBottomSheet.ARG_RESULTSORT) ?: ""
             viewModel.changeSortType(SortType.valueOf(result))
         }
     }
 
-    private val swipeOnRefreshListener = SwipeRefreshLayout.OnRefreshListener { viewModel.update() }
+    private val swipeOnRefreshListener =
+        SwipeRefreshLayout.OnRefreshListener { viewModel.fetchEmployees() }
 
     private val changeFilter = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             viewModel.setFilter(p0.toString())
         }
 
-        override fun afterTextChanged(p0: Editable?) {
-        }
-
+        override fun afterTextChanged(p0: Editable?) = Unit
     }
 
     private val employeesAdapter = EmployeesAdapter(employeesAdapterListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding?.root
         setContentView(view)
-
         initView()
 
         viewModel.uiState.observe(this) { uiState ->
@@ -129,11 +121,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.tabs?.addOnTabSelectedListener(tabSelectedListener)
-
         binding?.sortsUser?.setOnClickListener(menuClickListener)
-
         binding?.searchTextview?.addTextChangedListener(changeFilter)
-
         binding?.swipeLayout?.setOnRefreshListener(swipeOnRefreshListener)
     }
 

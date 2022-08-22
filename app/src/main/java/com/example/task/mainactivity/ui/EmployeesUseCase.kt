@@ -5,7 +5,7 @@ import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 
 interface EmployeesUseCase {
-    suspend fun getCurrentEmployeeList(
+    fun getCurrentEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
@@ -15,5 +15,5 @@ interface EmployeesUseCase {
         departments: Departments,
         sortType: SortType,
         filterString: String
-    )
+    ): Result<Boolean>
 }

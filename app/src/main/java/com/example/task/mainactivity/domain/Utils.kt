@@ -31,17 +31,17 @@ private fun List<Employee>.sortedByAlphabet(): List<Employee> =
     sortedBy { it.lastName; it.firstName }
 
 private fun List<Employee>.getSortRelativelyNowDay(): List<Employee> {
-    val sortUser = sortedByBirthdate()
+    val sortEmployees = sortedByBirthdate()
 
-    val usersBeforeNowDay = sortUser.takeWhile {
+    val employeesBeforeNowDay = sortEmployees.takeWhile {
         it.birthday.beforeNowDay()
     }
 
-    val usersAfterNowDay = sortUser.takeLast(sortUser.size - usersBeforeNowDay.size)
+    val employeesAfterNowDay = sortEmployees.takeLast(sortEmployees.size - employeesBeforeNowDay.size)
 
     val resultSortedEmployees = mutableListOf<Employee>()
-    resultSortedEmployees.addAll(usersAfterNowDay)
-    resultSortedEmployees.addAll(usersBeforeNowDay)
+    resultSortedEmployees.addAll(employeesAfterNowDay)
+    resultSortedEmployees.addAll(employeesBeforeNowDay)
 
     return resultSortedEmployees
 }

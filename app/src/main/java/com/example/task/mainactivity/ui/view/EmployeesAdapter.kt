@@ -28,11 +28,11 @@ class EmployeesAdapter(
                         && newItem is UIModel.EmployeeUI
                         && oldItem.item.id == newItem.item.id
 
-                val isUserBDItem = oldItem is UIModel.EmployeeUIWithBirthday
+                val isEmployeeBDItem = oldItem is UIModel.EmployeeUIWithBirthday
                         && newItem is UIModel.EmployeeUIWithBirthday
                         && oldItem.item.id == newItem.item.id
 
-                return isEmployeeUIItem || isUserBDItem
+                return isEmployeeUIItem || isEmployeeBDItem
             }
 
             override fun areContentsTheSame(oldItem: UIModel, newItem: UIModel) = oldItem == newItem

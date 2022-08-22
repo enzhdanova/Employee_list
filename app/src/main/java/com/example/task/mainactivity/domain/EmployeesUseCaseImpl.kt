@@ -12,35 +12,36 @@ class EmployeesUseCaseImpl @Inject constructor(
     private val employeesRepository: EmployeesRepository
 ) : EmployeesUseCase {
 
-    private var employeesResult: Result<List<Employee>>? = null
+    private val employees: MutableList<Employee> = mutableListOf()
 
-    override suspend fun getCurrentEmployeeList(
+    override fun getCurrentEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
     ): Result<List<UIModel>> {
-        val resultFromRepository = employeesRepository.getEmployees()//employeesResult
+        val copyEmployees = employees
 
-        resultFromRepository.onFailure {
-            return Result.failure(it)
-        }.onSuccess { employeesResult ->
-            val employees: List<UIModel> = employeesResult.getEmployeesFromDepartment(departments)
-                .filter { employee ->
-                    isContainsValue(employee, filterString)
-                }.getSortedEmployees(sortType).toUIModelRelativelySortType(sortType)
+        val employeesUI: List<UIModel> = copyEmployees.getEmployeesFromDepartment(departments)
+            .filter { employee ->
+                isContainsValue(employee, filterString)
+            }.getSortedEmployees(sortType)
+            .toUIModelRelativelySortType(sortType)
 
-            return checkIsEmptyAndGetResult(employees)
-        }
-
-        return Result.failure(Exception())
+        return checkIsEmptyAndGetResult(employeesUI)
     }
 
     override suspend fun fetchEmployees(
         departments: Departments,
         sortType: SortType,
         filterString: String
-    ) {
-        employeesResult = employeesRepository.getEmployees()
+    ): Result<Boolean> {
+        employeesRepository.getEmployees().onSuccess { result ->
+            employees.clear()
+            employees.addAll(result)
+        }.onFailure {
+            return Result.failure(it)
+        }
+        return Result.success(true)
     }
 
     private fun isContainsValue(employees: Employee, filterString: String): Boolean =
