@@ -12,7 +12,7 @@ class EmployeesRepositoryImpl @Inject constructor(
     private val employeesApi: EmployeesApi
 ) : EmployeesRepository {
 
-    override suspend fun getUsers(): Result<List<Employee>> {
+    override suspend fun getEmployees(): Result<List<Employee>> {
         return withContext(Dispatchers.IO) {
             try {
              /*    val response = employeesApi.getEmployees().body() ?: emptyList()

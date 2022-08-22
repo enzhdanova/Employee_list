@@ -16,16 +16,17 @@ class EmployeesViewModel @Inject constructor(
     private val employeesUseCase: EmployeesUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableLiveData<EmployeesUIState>()
+    private val _uiState = MutableLiveData(EmployeesUIState())
     val uiState: LiveData<EmployeesUIState> = _uiState
 
     init {
-        _uiState.value = EmployeesUIState()
+        fetchEmployees()
+        getCurrentEmployees()
     }
 
-    fun getUserFromDepartment() {
+    fun getCurrentEmployees() {
         viewModelScope.launch {
-            val users = employeesUseCase.getEmployeeList(
+            val users = employeesUseCase.getCurrentEmployeeList(
                 departments = uiState.value?.departments ?: Departments.ALL,
                 sortType = uiState.value?.sortType ?: SortType.ALPHABET,
                 filterString = uiState.value?.filter ?: ""
@@ -38,6 +39,17 @@ class EmployeesViewModel @Inject constructor(
             }
         }
     }
+
+    fun fetchEmployees(){
+        viewModelScope.launch {
+            employeesUseCase.fetchEmployees(
+                departments = Departments.ALL,
+                sortType = SortType.ALPHABET,
+                filterString = "")
+        }
+    }
+
+
 
     fun update() {
         _uiState.value = _uiState.value?.copy(needUpdateList = true)

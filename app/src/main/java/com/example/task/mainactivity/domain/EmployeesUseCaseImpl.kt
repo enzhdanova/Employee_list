@@ -12,32 +12,46 @@ class EmployeesUseCaseImpl @Inject constructor(
     private val employeesRepository: EmployeesRepository
 ) : EmployeesUseCase {
 
-    override suspend fun getEmployeeList(
+    private var employeesResult: Result<List<Employee>>? = null
+
+    override suspend fun getCurrentEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
     ): Result<List<UIModel>> {
-        val resultFromRepository = employeesRepository.getUsers()
+        val resultFromRepository = employeesRepository.getEmployees()//employeesResult
 
         resultFromRepository.onFailure {
             return Result.failure(it)
-        }.onSuccess { usersList ->
-            val users: List<UIModel> = usersList.getEmployeesFromDepartment(departments)
-                .filter { user ->
-                    isContainsValue(user, filterString)
-                }.getSortedEmployees(sortType).toUIModel(sortType)
+        }.onSuccess { employeesResult ->
+            val employees: List<UIModel> = employeesResult.getEmployeesFromDepartment(departments)
+                .filter { employee ->
+                    isContainsValue(employee, filterString)
+                }.getSortedEmployees(sortType).toUIModelRelativelySortType(sortType)
 
-            return if (users.isEmpty())
-                Result.success(listOf(UIModel.NotFound))
-            else
-                Result.success(users)
+            return checkIsEmptyAndGetResult(employees)
         }
 
         return Result.failure(Exception())
+    }
+
+    override suspend fun fetchEmployees(
+        departments: Departments,
+        sortType: SortType,
+        filterString: String
+    ) {
+        employeesResult = employeesRepository.getEmployees()
     }
 
     private fun isContainsValue(employees: Employee, filterString: String): Boolean =
         employees.lastName.contains(filterString, true)
                 || employees.firstName.contains(filterString, true)
                 || employees.userTag.contains(filterString, true)
+
+
+    private fun checkIsEmptyAndGetResult(employees: List<UIModel>) = if (employees.isEmpty()) {
+        Result.success(listOf(UIModel.NotFound))
+    } else {
+        Result.success(employees)
+    }
 }

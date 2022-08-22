@@ -18,7 +18,7 @@ sealed class UIModel {
         val item: EmployeeItem
     ) : UIModel() {
         companion object {
-            fun toUIModel(employee: Employee) = EmployeeUI(
+            fun toUIModel(employee: Employee) = EmployeeUIWithBirthday(
                 item = EmployeeItem.toUIModel(employee)
             )
         }
@@ -41,6 +41,18 @@ data class EmployeeItem(
     val birthday: LocalDate,
     val phone: String
 ) {
+
+    fun toModel() = Employee(
+        id = id,
+        lastName = lastName,
+        firstName = firstName,
+        avatarUrl = avatarUrl,
+        position = position,
+        userTag = userTag,
+        birthday = birthday,
+        phone = phone,
+        department = ""
+    )
 
     companion object {
         fun toUIModel(employee: Employee) = EmployeeItem(

@@ -56,7 +56,7 @@ private fun LocalDate.beforeNowDay(): Boolean {
     return nowMonth > month || (nowMonth == month && nowDay > dayOfMonth)
 }
 
-fun List<Employee>.toUIModel(sortType: SortType): List<UIModel> {
+fun List<Employee>.toUIModelRelativelySortType(sortType: SortType): List<UIModel> {
     return when (sortType) {
         SortType.ALPHABET -> {
             this.map { employee ->
@@ -74,10 +74,14 @@ private fun getUIModelWithSeparator(indexSeparator: Int, employees: List<Employe
     val result: MutableList<UIModel> = employees.map { employee ->
         UIModel.EmployeeUIWithBirthday.toUIModel(employee)
     }.toMutableList()
-    result.add(indexSeparator, UIModel.Separator())
+
+    if (indexSeparator >= 0) {
+        result.add(indexSeparator, UIModel.Separator())
+    }
     return result
 }
 
-private fun getIndexSeparator(employees: List<Employee>) = employees.indexOfFirst { employee ->
-    LocalDate.now().monthValue < employee.birthday.monthValue
-}
+private fun getIndexSeparator(employees: List<Employee>): Int = employees
+    .indexOfFirst { employee ->
+        LocalDate.now().monthValue > employee.birthday.monthValue
+    }

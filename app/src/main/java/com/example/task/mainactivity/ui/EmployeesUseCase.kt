@@ -5,9 +5,15 @@ import com.example.task.mainactivity.utils.Departments
 import com.example.task.mainactivity.utils.SortType
 
 interface EmployeesUseCase {
-    suspend fun getEmployeeList(
+    suspend fun getCurrentEmployeeList(
         departments: Departments,
         sortType: SortType,
         filterString: String
     ): Result<List<UIModel>>
+
+    suspend fun fetchEmployees(
+        departments: Departments,
+        sortType: SortType,
+        filterString: String
+    )
 }

@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (uiState.needUpdateList) {
-                viewModel.getUserFromDepartment()
+                viewModel.getCurrentEmployees()
                 binding?.swipeLayout?.isRefreshing = false
                 return@observe
             }
@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         errorFragment.setFragmentResultListener(ErrorFragment.REQUEST_KEY) { _, _ ->
-            viewModel.getUserFromDepartment()
+            viewModel.getCurrentEmployees()
         }
     }
 }
