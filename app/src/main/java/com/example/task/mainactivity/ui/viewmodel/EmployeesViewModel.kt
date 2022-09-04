@@ -46,7 +46,7 @@ class EmployeesViewModel @Inject constructor(
             )
 
             fetchResult.onSuccess {
-                _uiState.value = _uiState.value?.copy(needUpdateList = true)
+                _uiState.value = _uiState.value?.copy(needUpdateList = true, error = false)
             }.onFailure {
                 _uiState.value = _uiState.value?.copy(error = true)
             }

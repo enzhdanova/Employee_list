@@ -16,6 +16,27 @@ fun List<Employee>.getEmployeesFromDepartment(department: Department): List<Empl
     }
 }
 
+fun List<Employee>.filter(department: Department, searchString: String): List<Employee> {
+
+    if (department == Department.ALL && searchString == ""){
+        return this
+    }
+
+    return if (department == Department.ALL) {
+        this.filter { employee -> hasValue(employee, searchString) }
+    } else {
+        this.filter { employee ->
+            employee.department == department.name.lowercase() && hasValue(employee, searchString)
+        }
+    }
+}
+
+private fun hasValue(employees: Employee, filterString: String): Boolean =
+    employees.lastName.contains(filterString, true)
+            || employees.firstName.contains(filterString, true)
+            || employees.userTag.contains(filterString, true)
+
+
 fun List<Employee>.getSortedEmployees(sortType: SortType): List<Employee> {
     return when (sortType) {
         SortType.ALPHABET -> {

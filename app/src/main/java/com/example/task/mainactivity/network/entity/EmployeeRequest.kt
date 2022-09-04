@@ -1,6 +1,7 @@
 package com.example.task.mainactivity.network.entity
 
 import com.example.task.mainactivity.data.model.Employee
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 
 data class EmployeeRequest(
@@ -11,12 +12,12 @@ data class EmployeeRequest(
     val userTag: String,
     val department: String,
     val position: String,
-    val birthday: LocalDate,
+    val birthday: String,
     val phone: String
 ) {
     fun toModel() = Employee(
         id, avatarUrl, firstName,
         lastName, userTag, department,
-        position, birthday, phone
+        position, LocalDate.parse(birthday), phone
     )
 }

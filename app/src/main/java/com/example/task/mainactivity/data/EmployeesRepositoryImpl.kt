@@ -15,13 +15,13 @@ class EmployeesRepositoryImpl @Inject constructor(
     override suspend fun getEmployees(): Result<List<Employee>> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = employeesApi.getEmployees().body() ?: emptyList()
-
+                val response = employeesApi.getEmployees().body()?.items ?: emptyList()
                 val employees = response.map {
                     it.toModel()
                 }
                 Result.success(employees)
             } catch (io: Exception) {
+                println("MyApp: exeption $io")
                 Result.failure(io)
             }
         }

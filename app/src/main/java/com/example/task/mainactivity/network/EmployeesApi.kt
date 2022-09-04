@@ -1,10 +1,12 @@
 package com.example.task.mainactivity.network
 
-import com.example.task.mainactivity.network.entity.EmployeeRequest
+import com.example.task.mainactivity.network.entity.ItemsRequest
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Headers
 
 interface EmployeesApi {
-    @GET("users/")
-    suspend fun getEmployees(): Response<List<EmployeeRequest>>
+    @Headers("Prefer: code=200, example=success")
+    @GET("users")
+    suspend fun getEmployees(): Response<ItemsRequest>
 }

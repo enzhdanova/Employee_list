@@ -20,10 +20,8 @@ class EmployeesUseCaseImpl @Inject constructor(
     ): Result<List<UIModel>> {
         val copyEmployees = employees
 
-        val employeesUI: List<UIModel> = copyEmployees.getEmployeesFromDepartment(department)
-            .filter { employee ->
-                hasValue(employee, filterString)
-            }.getSortedEmployees(sortType)
+        val employeesUI: List<UIModel> = copyEmployees.filter(department, filterString)
+            .getSortedEmployees(sortType)
             .toUIModelRelativelySortType(sortType)
 
         return checkIsEmptyAndGetResult(employeesUI)
@@ -42,12 +40,6 @@ class EmployeesUseCaseImpl @Inject constructor(
         }
         return Result.success(true)
     }
-
-    private fun hasValue(employees: Employee, filterString: String): Boolean =
-        employees.lastName.contains(filterString, true)
-                || employees.firstName.contains(filterString, true)
-                || employees.userTag.contains(filterString, true)
-
 
     private fun checkIsEmptyAndGetResult(employees: List<UIModel>) = if (employees.isEmpty()) {
         Result.success(listOf(UIModel.NotFound))
