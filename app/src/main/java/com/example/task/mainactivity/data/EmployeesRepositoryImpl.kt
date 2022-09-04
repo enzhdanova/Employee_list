@@ -21,7 +21,6 @@ class EmployeesRepositoryImpl @Inject constructor(
                 }
                 Result.success(employees)
             } catch (io: Exception) {
-                println("MyApp: exeption $io")
                 Result.failure(io)
             }
         }
