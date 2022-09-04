@@ -6,19 +6,9 @@ import com.example.task.mainactivity.utils.Department
 import com.example.task.mainactivity.utils.SortType
 import java.time.LocalDate
 
-fun List<Employee>.getEmployeesFromDepartment(department: Department): List<Employee> {
-    return if (department == Department.ALL) {
-        this
-    } else {
-        this.filter {
-            it.department == department.name.lowercase()
-        }
-    }
-}
-
 fun List<Employee>.filter(department: Department, searchString: String): List<Employee> {
 
-    if (department == Department.ALL && searchString == ""){
+    if (department == Department.ALL && searchString == "") {
         return this
     }
 
