@@ -7,7 +7,6 @@ import com.example.task.mainactivity.utils.SortType
 import java.time.LocalDate
 
 fun List<Employee>.filter(department: Department, searchString: String): List<Employee> {
-
     if (department == Department.ALL && searchString == "") {
         return this
     }

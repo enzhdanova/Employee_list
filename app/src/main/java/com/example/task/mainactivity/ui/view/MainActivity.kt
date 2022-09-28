@@ -128,13 +128,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showErrorFragment() {
-        val errorFragment = ErrorFragment.newInstance()
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.fragment, errorFragment, ErrorFragment.TAG)
+            add(R.id.fragment, ErrorFragment.newInstance(), ErrorFragment.TAG)
         }
 
-        errorFragment.setFragmentResultListener(ErrorFragment.REQUEST_KEY) { _, _ ->
+        supportFragmentManager.setFragmentResultListener(ErrorFragment.REQUEST_KEY, this){
+                _, _ ->
             viewModel.getCurrentEmployees()
         }
     }
