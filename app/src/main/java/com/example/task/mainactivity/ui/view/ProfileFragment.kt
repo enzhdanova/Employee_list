@@ -34,7 +34,6 @@ class ProfileFragment : Fragment() {
             binding?.birthday?.text = LocalDate.parse(birthdate).format(formatter)
             binding?.age?.text = resources.getQuantityString(R.plurals.plular_age, age, age)
 
-            // TODO: аватарки одни и теже, надо что-то придумать
             binding?.avatar?.let { it ->
                 Glide
                     .with(view)

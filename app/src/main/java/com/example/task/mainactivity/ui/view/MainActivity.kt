@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         initView()
 
         viewModel.uiState.observe(this) { uiState ->
-            println("MyApp: $uiState")
             if (uiState.error) {
                 showErrorFragment()
                 return@observe
