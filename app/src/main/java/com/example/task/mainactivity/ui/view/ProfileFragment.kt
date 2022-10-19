@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.model.Employee
@@ -16,42 +17,43 @@ import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private var binding: FragmentProfileBinding? = null
+    private val binding: FragmentProfileBinding by viewBinding()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let { bundle ->
             val birthdate = bundle.getString(ARG_DATE)
-            val age = Period.between(LocalDate.parse(birthdate), LocalDate.now()).years
+            val ageInString = Period.between(LocalDate.parse(birthdate), LocalDate.now()).years
             val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
-            binding?.name?.text = bundle.getString(ARG_NAME)
-            binding?.nickname?.text = bundle.getString(ARG_NICKNAME)
-            binding?.phone?.text = bundle.getString(ARG_PHONE)
-            binding?.position?.text = bundle.getString(ARG_POSITION)
-            binding?.birthday?.text = LocalDate.parse(birthdate).format(formatter)
-            binding?.age?.text = resources.getQuantityString(R.plurals.plular_age, age, age)
+            with(binding) {
+                name.text = bundle.getString(ARG_NAME)
+                nickname.text = bundle.getString(ARG_NICKNAME)
+                phone.text = bundle.getString(ARG_PHONE)
+                position.text = bundle.getString(ARG_POSITION)
+                birthday.text = LocalDate.parse(birthdate).format(formatter)
+                age.text = resources.getQuantityString(R.plurals.plular_age, ageInString, age)
 
-            binding?.avatar?.let { it ->
-                Glide
-                    .with(view)
-                    .load(bundle.getString(ARG_PHOTO))
-                    .into(it)
+                avatar.let { it ->
+                    Glide
+                        .with(view)
+                        .load(bundle.getString(ARG_PHOTO))
+                        .into(it)
+                }
+
+                back.setOnClickListener(listenerBack)
+                phone.setOnClickListener(listenerDialPhoneNumber)
             }
         }
-
-        binding?.back?.setOnClickListener(listenerBack)
-        binding?.phone?.setOnClickListener(listenerDialPhoneNumber)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        return binding.root
     }
 
     private val listenerBack = View.OnClickListener {
@@ -62,7 +64,7 @@ class ProfileFragment : Fragment() {
 
     private val listenerDialPhoneNumber = View.OnClickListener {
         val intent = Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:${binding?.phone?.text}")
+            data = Uri.parse("tel:${binding.phone.text}")
         }
         startActivity(intent)
     }

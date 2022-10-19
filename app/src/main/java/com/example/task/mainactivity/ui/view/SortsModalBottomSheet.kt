@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.databinding.BottomSheetSortsBinding
 import com.example.task.mainactivity.utils.SortType
@@ -20,22 +21,21 @@ class SortsModalBottomSheet : BottomSheetDialogFragment() {
         const val ARG_RESULTSORT = "sortType"
     }
 
-    private var binding: BottomSheetSortsBinding? = null
+    private val binding: BottomSheetSortsBinding by viewBinding()
     private var checkedSortType = SortType.ALPHABET
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = BottomSheetSortsBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.sortsGroup?.setOnCheckedChangeListener { _, i ->
+        binding.sortsGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.alphabet_sort -> checkedSortType = SortType.ALPHABET
                 R.id.birthday_sort -> checkedSortType = SortType.DATE_BIRTHDATE

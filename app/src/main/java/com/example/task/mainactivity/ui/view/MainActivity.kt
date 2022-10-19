@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.ActivityMainBinding
@@ -20,10 +21,10 @@ import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val viewModel by viewModels<EmployeesViewModel>()
-    private var binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding by viewBinding()
     private val modalSortsBottomSheet = SortsModalBottomSheet()
 
     private val employeesAdapterListener = object : EmployeesAdapter.EmployeesAdapterListener {
@@ -84,9 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding?.root
-        setContentView(view)
+        setContentView(binding.root)
         initView()
 
         viewModel.uiState.observe(this) { uiState ->

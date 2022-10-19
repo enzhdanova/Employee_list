@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResult
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.task.mainactivity.databinding.FragmentErrorBinding
 
 class ErrorFragment : Fragment() {
@@ -19,20 +20,19 @@ class ErrorFragment : Fragment() {
         fun newInstance() = ErrorFragment()
     }
 
-    private var binding: FragmentErrorBinding? = null
+    private val binding: FragmentErrorBinding by viewBinding()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.textviewAgain?.setOnClickListener(listenerBack)
+        binding.textviewAgain.setOnClickListener(listenerBack)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentErrorBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        return binding.root
     }
 
     private val listenerBack = View.OnClickListener {
