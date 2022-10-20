@@ -36,7 +36,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 birthday.text = LocalDate.parse(birthdate).format(formatter)
                 age.text = resources.getQuantityString(R.plurals.plular_age, ageInString, age)
 
-                avatar.let { it ->
+                avatar.let {
                     Glide
                         .with(view)
                         .load(bundle.getString(ARG_PHOTO))

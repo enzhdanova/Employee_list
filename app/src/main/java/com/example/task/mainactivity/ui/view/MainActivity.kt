@@ -14,6 +14,8 @@ import com.example.task.mainactivity.R
 import com.example.task.mainactivity.data.model.Employee
 import com.example.task.mainactivity.databinding.ActivityMainBinding
 import com.example.task.mainactivity.domain.entity.UIModel
+import com.example.task.mainactivity.ui.view.viewUtils.EmployeesAdapter
+import com.example.task.mainactivity.ui.view.viewUtils.EmployeesItemDecoration
 import com.example.task.mainactivity.ui.viewmodel.EmployeesViewModel
 import com.example.task.mainactivity.utils.Department
 import com.example.task.mainactivity.utils.SortType
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
             if (uiState.needUpdateList) {
                 viewModel.getCurrentEmployees()
-                binding?.swipeLayout?.isRefreshing = false
+                binding.swipeLayout.isRefreshing = false
                 return@observe
             }
 
@@ -105,24 +107,24 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initView() {
-        binding?.swipeLayout?.setColorSchemeResources(R.color.purple_rb)
+        binding.swipeLayout.setColorSchemeResources(R.color.purple_rb)
 
-        binding?.recyclerView?.apply {
+        binding.recyclerView.apply {
             adapter = employeesAdapter
             addItemDecoration(EmployeesItemDecoration(context))
         }
 
         for (tab in Department.values()) {
-            binding?.tabs?.apply {
+            binding.tabs.apply {
                 val newTab = this.newTab().setText(tab.dep)
                 addTab(newTab)
             }
         }
 
-        binding?.tabs?.addOnTabSelectedListener(tabSelectedListener)
-        binding?.sortsEmployee?.setOnClickListener(menuClickListener)
-        binding?.searchTextview?.addTextChangedListener(changeFilter)
-        binding?.swipeLayout?.setOnRefreshListener(swipeOnRefreshListener)
+        binding.tabs.addOnTabSelectedListener(tabSelectedListener)
+        binding.sortsEmployee.setOnClickListener(menuClickListener)
+        binding.searchTextview.addTextChangedListener(changeFilter)
+        binding.swipeLayout.setOnRefreshListener(swipeOnRefreshListener)
     }
 
     private fun showErrorFragment() {

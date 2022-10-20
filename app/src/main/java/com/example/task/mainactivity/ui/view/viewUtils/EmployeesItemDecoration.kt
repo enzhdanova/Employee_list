@@ -1,4 +1,4 @@
-package com.example.task.mainactivity.ui.view
+package com.example.task.mainactivity.ui.view.viewUtils
 
 import android.content.Context
 import android.graphics.Rect
@@ -29,13 +29,11 @@ class EmployeesItemDecoration(context: Context) : RecyclerView.ItemDecoration() 
             else -> Rect(margin16, margin6, margin16, margin6)
         }
 
-
         outRect.apply {
             left = newRect.left
             right = newRect.right
             top = newRect.top
             bottom = newRect.bottom
-
         }
     }
 }

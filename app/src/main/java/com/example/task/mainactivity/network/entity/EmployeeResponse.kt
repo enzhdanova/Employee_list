@@ -1,10 +1,9 @@
 package com.example.task.mainactivity.network.entity
 
 import com.example.task.mainactivity.data.model.Employee
-import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 
-data class EmployeeRequest(
+data class EmployeeResponse(
     val id: String,
     val avatarUrl: String,
     val firstName: String,

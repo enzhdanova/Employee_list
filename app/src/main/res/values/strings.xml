@@ -16,4 +16,17 @@
     <string name="error_title">Какой-то сверхразум все сломал</string>
     <string name="error_subtitle">Постараемся быстро починить</string>
     <string name="error_again">Попробовать снова</string>
+    <string name="all">Все</string>
+    <string name="android">Android</string>
+    <string name="ios">iOS</string>
+    <string name="disign">Дизайн</string>
+    <string name="management">Менеджмент</string>
+    <string name="qa">QA</string>
+    <string name="back_office">Бэк-офис</string>
+    <string name="frontend">Frontend</string>
+    <string name="hr">HR</string>
+    <string name="pr">PR</string>
+    <string name="backend">Backend</string>
+    <string name="support">Техподдержка</string>
+    <string name="analytics">Аналитика</string>
 </resources>

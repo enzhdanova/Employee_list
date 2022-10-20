@@ -1,4 +1,4 @@
-package com.example.task.mainactivity.ui.view
+package com.example.task.mainactivity.ui.view.viewUtils
 
 import android.net.Uri
 import android.view.LayoutInflater
