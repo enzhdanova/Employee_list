@@ -19,6 +19,7 @@ class ProfileUseCaseImpl @Inject constructor(
     }
 
     override suspend fun getEmployee(id: String): Result<EmployeeItem> {
+        //TODO: API, которое предоставили, дает возможность получить только весь список
 
         getEmployees().onSuccess { employees ->
             val resultEmployee: Employee? = employees.find { employee ->

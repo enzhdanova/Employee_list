@@ -96,13 +96,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 return@observe
             }
 
-            if (uiState.needUpdateList) {
-                viewModel.getCurrentEmployees()
-                binding.swipeLayout.isRefreshing = false
-                return@observe
+            binding.swipeLayout.isRefreshing = false
+            if (uiState.employeeList != null) {
+                employeesAdapter.submitList(uiState.employeeList)
             }
-
-            employeesAdapter.submitList(uiState.employeeList)
         }
     }
 
@@ -133,8 +130,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             add(R.id.fragment, ErrorFragment.newInstance(), ErrorFragment.TAG)
         }
 
-        supportFragmentManager.setFragmentResultListener(ErrorFragment.REQUEST_KEY, this){
-                _, _ ->
+        supportFragmentManager.setFragmentResultListener(ErrorFragment.REQUEST_KEY, this) { _, _ ->
             viewModel.getCurrentEmployees()
         }
     }

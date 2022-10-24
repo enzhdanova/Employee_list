@@ -27,18 +27,15 @@ class EmployeesUseCaseImpl @Inject constructor(
         return checkIsEmptyAndGetResult(employeesUI)
     }
 
-    override suspend fun fetchEmployees(
-        department: Department,
-        sortType: SortType,
-        filterString: String
-    ): Result<Boolean> {
+    override suspend fun fetchEmployees(): Result<Boolean> {
         employeesRepository.getEmployees().onSuccess { result ->
             employees.clear()
             employees.addAll(result)
+            return Result.success(true)
         }.onFailure {
             return Result.failure(it)
         }
-        return Result.success(true)
+        return Result.failure(Exception())
     }
 
     private fun checkIsEmptyAndGetResult(employees: List<UIModel>) = if (employees.isEmpty()) {

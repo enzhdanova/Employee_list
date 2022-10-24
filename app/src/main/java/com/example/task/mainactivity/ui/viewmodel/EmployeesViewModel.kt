@@ -24,14 +24,12 @@ class EmployeesViewModel @Inject constructor(
     }
 
     fun getCurrentEmployees() {
-        val employees = employeesUseCase.getCurrentEmployeeList(
+        employeesUseCase.getCurrentEmployeeList(
             department = uiState.value?.department ?: Department.ALL,
             sortType = uiState.value?.sortType ?: SortType.ALPHABET,
             filterString = uiState.value?.filter ?: ""
-        )
-
-        employees.onSuccess {
-            _uiState.value = _uiState.value?.copy(employeeList = it, needUpdateList = false)
+        ).onSuccess {
+            _uiState.value = _uiState.value?.copy(employeeList = it)
         }.onFailure {
             _uiState.value = _uiState.value?.copy(error = true)
         }
@@ -39,14 +37,8 @@ class EmployeesViewModel @Inject constructor(
 
     fun fetchEmployees() {
         viewModelScope.launch {
-            val fetchResult = employeesUseCase.fetchEmployees(
-                department = Department.ALL,
-                sortType = SortType.ALPHABET,
-                filterString = ""
-            )
-
-            fetchResult.onSuccess {
-                _uiState.value = _uiState.value?.copy(needUpdateList = true, error = false)
+            employeesUseCase.fetchEmployees().onSuccess {
+                getCurrentEmployees()
             }.onFailure {
                 _uiState.value = _uiState.value?.copy(error = true)
             }
@@ -54,14 +46,17 @@ class EmployeesViewModel @Inject constructor(
     }
 
     fun changeSortType(sortType: SortType) {
-        _uiState.value = _uiState.value?.copy(sortType = sortType, needUpdateList = true)
+        _uiState.value = _uiState.value?.copy(sortType = sortType)
+        getCurrentEmployees()
     }
 
     fun changeDepartment(department: Department) {
-        _uiState.value = _uiState.value?.copy(department = department, needUpdateList = true)
+        _uiState.value = _uiState.value?.copy(department = department)
+        getCurrentEmployees()
     }
 
     fun setFilter(filterString: String) {
-        _uiState.value = _uiState.value?.copy(filter = filterString, needUpdateList = true)
+        _uiState.value = _uiState.value?.copy(filter = filterString)
+        getCurrentEmployees()
     }
 }

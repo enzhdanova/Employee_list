@@ -11,9 +11,5 @@ interface EmployeesUseCase {
         filterString: String
     ): Result<List<UIModel>>
 
-    suspend fun fetchEmployees(
-        department: Department,
-        sortType: SortType,
-        filterString: String
-    ): Result<Boolean>
+    suspend fun fetchEmployees(): Result<Boolean>
 }

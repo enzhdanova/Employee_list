@@ -10,5 +10,4 @@ data class EmployeesUIState(
     val department: Department = Department.ALL,
     val filter: String = "",
     val error: Boolean = false,
-    val needUpdateList: Boolean = true
 )
