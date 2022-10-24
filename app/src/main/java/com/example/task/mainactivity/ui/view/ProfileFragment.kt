@@ -9,26 +9,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.task.mainactivity.R
 import com.example.task.mainactivity.databinding.FragmentProfileBinding
 import com.example.task.mainactivity.domain.entity.EmployeeItem
 import com.example.task.mainactivity.ui.viewmodel.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private val binding: FragmentProfileBinding by viewBinding()
+    private val binding: FragmentProfileBinding by viewBinding(createMethod = CreateMethod.INFLATE)
     private val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let { bundle ->
-            val id = bundle.getString(ARG_ID)?:""
+            val id = bundle.getString(ARG_ID) ?: ""
             viewModel.getEmployee(id)
         }
 
@@ -83,7 +86,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun setEmployee(employee: EmployeeItem) {
         val birthdate = employee.birthday
-        val ageInString = Period.between(birthdate, LocalDate.now()).years
+        val ageInInt = Period.between(birthdate, LocalDate.now()).years
         val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
         with(binding) {
@@ -93,7 +96,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             phone.text = employee.phone
             position.text = employee.position
             birthday.text = birthdate.format(formatter)
-            age.text = resources.getQuantityString(R.plurals.plular_age, ageInString, age)
+            age.text = resources.getQuantityString(R.plurals.plular_age, ageInInt, ageInInt)
 
             avatar.let {
                 Glide

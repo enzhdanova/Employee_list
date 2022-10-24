@@ -4,8 +4,10 @@ import com.example.task.mainactivity.BuildConfig
 import com.example.task.mainactivity.data.EmployeesRepositoryImpl
 import com.example.task.mainactivity.domain.EmployeesRepository
 import com.example.task.mainactivity.domain.EmployeesUseCaseImpl
+import com.example.task.mainactivity.domain.ProfileUseCaseImpl
 import com.example.task.mainactivity.network.EmployeesApi
 import com.example.task.mainactivity.ui.EmployeesUseCase
+import com.example.task.mainactivity.ui.ProfileUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -26,9 +28,14 @@ abstract class EmployeesViewModelModule {
     ): EmployeesRepository
 
     @Binds
-    abstract fun bindUseCase(
+    abstract fun bindEmployeeUseCase(
         useCaseImpl: EmployeesUseCaseImpl
     ): EmployeesUseCase
+
+    @Binds
+    abstract fun bindProfileUseCase(
+        useCaseImpl: ProfileUseCaseImpl
+    ): ProfileUseCase
 
 }
 

@@ -1,7 +1,6 @@
 package com.example.task.mainactivity.domain
 
 import com.example.task.mainactivity.data.model.Employee
-import com.example.task.mainactivity.domain.entity.EmployeeItem
 import com.example.task.mainactivity.domain.entity.UIModel
 import com.example.task.mainactivity.ui.EmployeesUseCase
 import com.example.task.mainactivity.utils.Department
@@ -40,18 +39,6 @@ class EmployeesUseCaseImpl @Inject constructor(
             return Result.failure(it)
         }
         return Result.success(true)
-    }
-
-    override suspend fun getEmployee(id: String): Result<EmployeeItem> {
-        val resultEmployee = employees.find {
-            employee -> employee.id == id
-        }
-
-        return if (resultEmployee != null) {
-            Result.success(EmployeeItem.toUIModel(resultEmployee))
-        } else {
-            Result.failure(Exception())
-        }
     }
 
     private fun checkIsEmptyAndGetResult(employees: List<UIModel>) = if (employees.isEmpty()) {

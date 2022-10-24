@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.task.mainactivity.ui.EmployeesUseCase
+import com.example.task.mainactivity.ui.ProfileUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(
-    private val employeesUseCase: EmployeesUseCase
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    private val profileUseCase: ProfileUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData(ProfileUIState())
@@ -16,7 +19,11 @@ class ProfileViewModel(
 
     fun getEmployee(id: String) {
         viewModelScope.launch {
-            employeesUseCase.getEmployee(id)
+            val employeeResult = profileUseCase.getEmployee(id)
+
+            employeeResult.onSuccess { employee ->
+                _uiState.value = _uiState.value?.copy(employee = employee)
+            }
         }
     }
 }
