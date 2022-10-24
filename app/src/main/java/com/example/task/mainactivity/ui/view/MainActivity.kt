@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.fragment, ProfileFragment.newInstance(employee), ProfileFragment.TAG)
+                add(R.id.fragment, ProfileFragment.newInstance(employee.id), ProfileFragment.TAG)
             }
         }
     }
